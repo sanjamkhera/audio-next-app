@@ -479,7 +479,7 @@ const UserInput = () => {
           {isRecording ? (
             <div className='flex items-center justify-between w-full'>
               <div className='flex items-center'>
-                <img src="/micRed.svg" className="animate-pulse w-auto h-auto" />
+                <img src="/audio-to-UI-app/micRed.svg" className="animate-pulse w-auto h-auto" />
               </div>
               <div className='flex flex-1 mx-4'>
                 <canvas ref={canvasRef} className='h-7 w-full'></canvas>
@@ -495,21 +495,21 @@ const UserInput = () => {
 
               <button onClick={(e) => { e.stopPropagation(); togglePlayPause(); }} className='flex justify-center h-auto w-10 ml-2'>
               <audio ref={audioRef} src={audioUrl} hidden></audio>
-                {isPlaying ? (<img src="/pauseIcon.svg" alt="Pause" className='h-full w-full' />) : (<img src="/playIcon.svg" alt="Play" className='h-full w-full' />)}
+                {isPlaying ? (<img src="/audio-to-UI-app/pauseIcon.svg" alt="Pause" className='h-full w-full' />) : (<img src="/audio-to-UI-app/playIcon.svg" alt="Play" className='h-full w-full' />)}
               </button>
 
               <canvas ref={waveformRef} className='h-4/5 w-full px-2'></canvas>
 
               <button onClick={(e) => { e.stopPropagation(); handleResumeRecording(); }} className='flex justify-center h-auto w-10'>
-                <img src="/pauseIcon.svg" alt="Resume" className='h-full w-full' />
+                <img src="/audio-to-UI-app/pauseIcon.svg" alt="Resume" className='h-full w-full' />
               </button>
 
               <button onClick={(e) => { e.stopPropagation(); handleCompleteRecording(); }} className='flex justify-center h-auto w-10 mx-2'>
-                <img src="/featherIcon.svg" alt="Complete" className='h-full w-full' />
+                <img src="/audio-to-UI-app/featherIcon.svg" alt="Complete" className='h-full w-full' />
               </button>
 
               <button onClick={(e) => { e.stopPropagation(); handleDeleteRecording(); }} className='flex justify-center bg-black rounded-lg h-auto w-10'>
-                <img src="/deleteIcon.svg" alt="Delete" className='h-auto w-auto' />
+                <img src="/audio-to-UI-app/deleteIcon.svg" alt="Delete" className='h-auto w-auto' />
               </button>
 
             </div>
