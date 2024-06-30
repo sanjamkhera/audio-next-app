@@ -59,21 +59,21 @@ const Hero = () => {
           <div className='flex flex-row overflow-hidden w-full'>
             {/* animate-smoothScroll */}
             <div className=' flex gap-6 animate-smoothScroll'>
-              <img src="/paypal.svg" alt="PayPal" className="min-w-svg " />
-              <img src="/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg " />
+              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/paypal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/paypal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/paypal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
             </div>
           </div>
 
