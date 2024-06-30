@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="w-full flex items-center justify-between mx-4 xs:mt-4 mt-6">
 
         {/* LOGO, Replaced with SVG */}
-        <img src="/logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
+        <img src="/audio-to-UI-app/logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
 
         {/* BUTTON */}
         <button className="flex flex-row justify-center items-center px-3 py-[10px] gap-2 flex-none bg-white text-black rounded-lg ring-2 ring-customGray mr-4 ring-inset">
