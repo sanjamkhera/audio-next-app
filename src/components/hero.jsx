@@ -59,19 +59,19 @@ const Hero = () => {
           <div className='flex flex-row overflow-hidden w-full'>
             {/* animate-smoothScroll */}
             <div className=' flex gap-6 animate-smoothScroll'>
-              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg " />
+              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg " />
               <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
               <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
               <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
               <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
               <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
               <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/paypal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
               <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
               <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
             </div>
