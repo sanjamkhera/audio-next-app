@@ -9,8 +9,8 @@ const Hero = () => {
 
       <div className="w-full flex items-center justify-between mx-4 xs:mt-4 mt-6">
 
-        {/* LOGO, Replaced with SVG */}
-        <img src="/audio-to-UI-app/logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
+        {/* LOGO, For Local */}
+        <img src="logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
 
         {/* BUTTON */}
         <button className="flex flex-row justify-center items-center px-3 py-[10px] gap-2 flex-none bg-white text-black rounded-lg ring-2 ring-customGray mr-4 ring-inset">
@@ -49,7 +49,7 @@ const Hero = () => {
           <span className="text-justPretty whitespace-nowrap"> to solve.</span>
         </div>
 
-        <div className="flex flex-row min-w-[315px] max-w-[390px] items-center py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e] ">
+        <div className="flex flex-row max-w-[390px] items-center py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e] ">
 
           <div className="italic min-w-2/5 flex flex-col items-center justify-center text-[12px] font-small pr-2 border-r border-[#E5E5E5] bg-white">
             <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied</span></div>
@@ -59,28 +59,40 @@ const Hero = () => {
           <div className='flex flex-row overflow-hidden w-full'>
             {/* animate-smoothScroll */}
             <div className=' flex gap-6 animate-smoothScroll'>
-              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg " />
-              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="payPal.svg" alt="PayPal" className="min-w-svg " />
+              <img src="brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
               {/* Duplicate the images for a seamless loop */}
-              <img src="/audio-to-UI-app/payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="/audio-to-UI-app/brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="/audio-to-UI-app/achieve.svg" alt="Achieve" className="min-w-svg" />
+              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
+              {/* Duplicate the images for a seamless loop */}
+              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
+              <img src="brand.svg" alt="Brand" className="min-w-svg" />
+              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
             </div>
           </div>
 
         </div>
 
         <div style={{ letterSpacing: '-1.1px' }} className="flex whitespace-nowrap xs:text-[15px] text-[17px] leading-[1.2] font-medium text-prettyGray xs:mt-[10px] mt-4 xs:mb-[14px] mb-[22px]">
-          High-fidelity designs, in <span className="text-[#14151A] underline pl-1">24 hours or less*</span>.
+          High-fidelity designs, in <span
+            className="text-[#14151A] underline pl-1 cursor-pointer"
+            onClick={() => window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: 'smooth'
+            })}
+          >
+            24 hours or less*
+          </span>
         </div>
 
       </div>
