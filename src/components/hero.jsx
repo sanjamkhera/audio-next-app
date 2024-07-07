@@ -1,24 +1,15 @@
-"use client"
-
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import ProjectTracker from './ProjectTracker';
 
 const Hero = () => {
-
   return (
     <div className='flex flex-col items-center'>
-
       <div className="w-full flex items-center justify-between mx-4 xs:mt-4 mt-6">
-
         {/* LOGO, For Local */}
         <img src="logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
-
-        {/* BUTTON */}
-        <button className="flex flex-row justify-center items-center px-3 py-[10px] gap-2 flex-none bg-white text-black rounded-lg ring-2 ring-customGray mr-4 ring-inset">
-          <img src="projectHistory.svg" alt="Project History" />
-          <span className="text-sm font-bold text-[#1D252F]">Track Project</span>
-          <img src="dropDown.svg" alt="Dropdown" />
-        </button>
-
+        
+        {/* Track Project Button */}
+        <ProjectTracker />
       </div>
 
       {/* Custom Paragraph */}
@@ -66,18 +57,6 @@ const Hero = () => {
               <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
               <img src="brand.svg" alt="Brand" className="min-w-svg" />
               <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
-              {/* Duplicate the images for a seamless loop */}
-              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
-              {/* Duplicate the images for a seamless loop */}
-              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
-              {/* Duplicate the images for a seamless loop */}
-              <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-              <img src="brand.svg" alt="Brand" className="min-w-svg" />
-              <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
             </div>
           </div>
 
@@ -94,9 +73,7 @@ const Hero = () => {
             24 hours or less*
           </span>
         </div>
-
       </div>
-
     </div>
   );
 };
