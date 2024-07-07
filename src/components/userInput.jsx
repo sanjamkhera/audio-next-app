@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import AudioButton from './AudioButton';
-import AttachmentButton from './AttachmentButton';
-import EmailButton from './EmailButton';
+import AudioButton from './audioButton';
+import AttachmentButton from './attachmentButton';
+import EmailButton from './emailButton';
 
 const UserInput = () => {
   const [isRecording, setIsRecording] = useState(false);

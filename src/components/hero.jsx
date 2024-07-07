@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import ProjectTracker from './ProjectTracker';
+import ProjectTracker from './projectTracker';
 
 const Hero = () => {
   return (
