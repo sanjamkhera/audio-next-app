@@ -85,32 +85,7 @@ const AudioButton = ({
     };
   }, [isRecording]);
 
-  useEffect(() => {
-    const setAudioOutputDevice = async () => {
-      if (audioRef.current) {
-        try {
-          // Check if the browser supports setting the audio output device
-          if (typeof audioRef.current.setSinkId === 'function') {
-            const devices = await navigator.mediaDevices.enumerateDevices();
-            const audioOutputDevices = devices.filter(device => device.kind === 'audiooutput');
-            if (audioOutputDevices.length > 0) {
-              // Attempt to set the audio output to the first available device
-              await audioRef.current.setSinkId(audioOutputDevices[0].deviceId);
-              console.log(`Audio output set to device: ${audioOutputDevices[0].label}`);
-            }
-          } else {
-            // Browser does not support setting the audio output device
-            console.log('Browser does not support changing the audio output device programmatically.');
-          }
-        } catch (error) {
-          console.error('Error setting audio output device:', error);
-        }
-      }
-    };
-  
-    setAudioOutputDevice();
-  }, []);
-  
+
   useEffect(() => {
     const drawWaveform = async () => {
       const canvas = waveformRef.current;
@@ -268,18 +243,18 @@ const AudioButton = ({
     }
   };
 
-  const togglePlayPause = () => {
+  const togglePlayPause = async () => {
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause().catch(error => {
-          console.error('Pause error:', error);
-        });
-      } else {
-        audioRef.current.play().catch(error => {
-          console.error('Play error:', error);
-        });
+      try {
+        if (isPlaying) {
+          await audioRef.current.pause();
+        } else {
+          await audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      } catch (error) {
+        console.error(isPlaying ? 'Pause error:' : 'Play error:', error);
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
