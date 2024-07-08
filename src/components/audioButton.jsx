@@ -87,26 +87,30 @@ const AudioButton = ({
 
   useEffect(() => {
     const setAudioOutputDevice = async () => {
-      if (audioRef.current && audioRef.current.setSinkId) {
+      if (audioRef.current) {
         try {
-          // Attempt to get the default device or any output device
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          const audioOutputDevices = devices.filter(device => device.kind === 'audiooutput');
-          if (audioOutputDevices.length > 0) {
-            // This example uses the first available output device
-            // You might want to let the user choose or try to select the default device explicitly
-            await audioRef.current.setSinkId(audioOutputDevices[0].deviceId);
-            console.log(`Audio output set to device: ${audioOutputDevices[0].label}`);
+          // Check if the browser supports setting the audio output device
+          if (typeof audioRef.current.setSinkId === 'function') {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const audioOutputDevices = devices.filter(device => device.kind === 'audiooutput');
+            if (audioOutputDevices.length > 0) {
+              // Attempt to set the audio output to the first available device
+              await audioRef.current.setSinkId(audioOutputDevices[0].deviceId);
+              console.log(`Audio output set to device: ${audioOutputDevices[0].label}`);
+            }
+          } else {
+            // Browser does not support setting the audio output device
+            console.log('Browser does not support changing the audio output device programmatically.');
           }
         } catch (error) {
           console.error('Error setting audio output device:', error);
         }
       }
     };
-
+  
     setAudioOutputDevice();
-  }, [audioUrl]);
-
+  }, []);
+  
   useEffect(() => {
     const drawWaveform = async () => {
       const canvas = waveformRef.current;
