@@ -82,6 +82,29 @@ const AudioButton = ({
       }
     };
   }, [isRecording]);
+
+  useEffect(() => {
+    const setAudioOutputDevice = async () => {
+      if (audioRef.current && audioRef.current.setSinkId) {
+        try {
+          // Attempt to get the default device or any output device
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioOutputDevices = devices.filter(device => device.kind === 'audiooutput');
+          if (audioOutputDevices.length > 0) {
+            // This example uses the first available output device
+            // You might want to let the user choose or try to select the default device explicitly
+            await audioRef.current.setSinkId(audioOutputDevices[0].deviceId);
+            console.log(`Audio output set to device: ${audioOutputDevices[0].label}`);
+          }
+        } catch (error) {
+          console.error('Error setting audio output device:', error);
+        }
+      }
+    };
+  
+    setAudioOutputDevice();
+  }, [audioUrl]); // Re-run when audioUrl changes, indicating a new recording is available for playback
+
   useEffect(() => {
     const drawWaveform = async () => {
       const canvas = waveformRef.current;
