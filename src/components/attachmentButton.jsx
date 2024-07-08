@@ -19,10 +19,9 @@ const AttachmentButton = ({ files, setFiles }) => {
     if (selectedFiles.length > 3 || (files.length + validFiles.length > 3)) {
       setError('You can attach a maximum of 3 files.');
     } else {
-      setError(''); // Clear error message if the selection is valid
+      setError('');
     }
-
-    setFiles(totalFiles); // Update state with the new list of files, limited to 3
+    setFiles(totalFiles);
   };
 
   return (

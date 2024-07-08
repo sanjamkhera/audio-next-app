@@ -14,7 +14,7 @@ const Hero = () => {
       </div>
 
       {/* Custom Paragraph */}
-      <div className='w-full flex flex-col xs:mt-3 mt-7 px-4'>
+      <div className='w-full flex flex-col xs:mt-3 mt-5 px-4'>
         <div style={{ letterSpacing: '-1.3px' }} className="font-bold text-pretty text-customGray xm:text-[50px] text-[46px] xs:text-[42px] text-start pb-4 xs:pb-2 leading-[0.95] xs:leading-[0.93]">
           <span className="whitespace-nowrap">For the busy</span>
           <div className="whitespace-nowrap">

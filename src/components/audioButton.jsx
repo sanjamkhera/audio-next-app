@@ -3,19 +3,48 @@
 import React, { useState, useRef, useEffect } from 'react';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 
-const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecordingComplete, audioUrl, setAudioUrl, timer, setTimer, isPlaying, setIsPlaying }) => {
+const AudioButton = ({
+  isRecording,
+  setIsRecording,
+  audioUrl,
+  setAudioUrl,
+  timer,
+  setTimer,
+  isPlaying,
+  setIsPlaying }) => {
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const audioRef = useRef(null);
   const analyserRef = useRef(null);
   const canvasRef = useRef(null);
   const waveformRef = useRef(null);
+  const dotCanvasRef = useRef(null);
+
+  const [playbackTime, setPlaybackTime] = useState(0);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      const audio = audioRef.current;
+      const updatePlaybackTime = () => {
+        setPlaybackTime(audio.currentTime);
+        setTimer(Math.floor(audio.currentTime)); // Update the timer here
+      };
+      audio.addEventListener('timeupdate', updatePlaybackTime);
+
+      return () => {
+        audio.removeEventListener('timeupdate', updatePlaybackTime);
+      };
+    }
+  }, [audioUrl]);
 
   useEffect(() => {
     if (!isRecording) return;
-  
+
+    let stream = null; // Hold the stream globally within this effect
+
     navigator.mediaDevices.getUserMedia({ audio: true })
-      .then(stream => {
+      .then(s => {
+        stream = s; // Assign the stream from getUserMedia to the global variable
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const source = audioCtx.createMediaStreamSource(stream);
         analyserRef.current = audioCtx.createAnalyser();
@@ -39,18 +68,21 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
         alert('Permission denied. Please enable microphone access and try again.');
         setIsRecording(false);
       });
-  
+
     return () => {
       if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
         mediaRecorderRef.current.stop();
       }
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop()); // Stop each track to ensure the microphone is turned off
+      }
+      // If using an audio context, disconnect the source here as well
+      if (analyserRef.current) {
+        analyserRef.current.disconnect();
+      }
     };
   }, [isRecording]);
-  
-
   useEffect(() => {
-    if (!audioUrl) return;
-
     const drawWaveform = async () => {
       const canvas = waveformRef.current;
       const ctx = canvas.getContext('2d');
@@ -63,6 +95,7 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
       const step = Math.ceil(data.length / canvas.width);
       const amp = canvas.height / 2;
 
+
       ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.lineWidth = 2;
@@ -71,7 +104,9 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
 
       const lineSpacing = 3;
       const silenceThreshold = 0.1;
-      const tinyBarHeight = 3;
+      const tinyBarHeight = 4;
+
+      const scalingFactor = 4; // Increase this to increase the height of the waveform
 
       for (let i = 0; i < canvas.width; i += lineSpacing) {
         let min = 1.0;
@@ -81,19 +116,64 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
           if (datum < min) min = datum;
           if (datum > max) max = datum;
         }
+        min *= scalingFactor; // Apply scaling factor
+        max *= scalingFactor; // Apply scaling factor
+
         if (max - min < silenceThreshold) {
           ctx.moveTo(i, amp - tinyBarHeight / 2);
           ctx.lineTo(i, amp + tinyBarHeight / 2);
         } else {
-          ctx.moveTo(i, (1 + min) * amp);
-          ctx.lineTo(i, (1 + max) * amp);
+          // Adjust the drawing to account for the increased height
+          ctx.moveTo(i, amp + min * (amp / 2));
+          ctx.lineTo(i, amp + max * (amp / 2));
         }
       }
       ctx.stroke();
     };
 
-    drawWaveform();
-  }, [audioUrl]);
+    const drawDot = () => {
+      if (!audioRef.current) return;
+      const canvas = dotCanvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const playbackPercentage = audioRef.current.currentTime / audioRef.current.duration;
+      const dotX = canvas.width * playbackPercentage;
+      canvas.height = canvas.offsetHeight;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Increase the radius here
+      const radius = 4; // Example: doubled the radius to make the dot bigger
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(dotX, canvas.height / 2, radius, 0, 2 * Math.PI);
+      ctx.fill();
+
+      requestAnimationFrame(drawDot);
+    };
+
+    if (audioUrl) {
+      drawWaveform().then(() => {
+        drawDot();
+      });
+    }
+  }, [audioUrl, playbackTime]);
+
+  const handleWaveformClick = (e) => {
+    const waveform = waveformRef.current;
+    if (!waveform) return;
+
+    const clickX = e.pageX - waveform.getBoundingClientRect().left;
+    const clickPercentage = clickX / waveform.width;
+    const newTime = audioRef.current.duration * clickPercentage;
+
+    // Check if newTime is finite before setting currentTime
+    if (isFinite(newTime)) {
+      audioRef.current.currentTime = newTime;
+      setTimer(Math.floor(newTime));
+    } else {
+      console.error('newTime is not finite:', newTime);
+    }
+  };
 
   const drawFrequencyBars = () => {
     const canvas = canvasRef.current;
@@ -138,14 +218,12 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
 
   const startRecording = () => {
     setIsRecording(true);
-    setRecordingComplete(false);
     setAudioUrl(null);
     setTimer(0);
   };
 
   const stopRecording = () => {
     setIsRecording(false);
-    setRecordingComplete(true);
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
     }
@@ -173,14 +251,8 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
     }
   };
 
-  const handleCompleteRecording = () => {
-    setRecordingComplete(true);
-    setIsRecording(false);
-  };
-
   const handleDeleteRecording = () => {
     setAudioUrl(null);
-    setRecordingComplete(false);
     setTimer(0);
   };
 
@@ -204,21 +276,22 @@ const AudioButton = ({ isRecording, setIsRecording, recordingComplete, setRecord
           </div>
         ) : audioUrl ? (
           <div className='flex items-center justify-between h-full w-full'>
-            <span className='h-auto w-auto'>{Math.floor(timer / 60)}:{("0" + (timer % 60)).slice(-2)}</span>
-            <button onClick={(e) => { e.stopPropagation(); togglePlayPause(); }} className='flex justify-center w-10 ml-2'>
-              <audio ref={audioRef} src={audioUrl} ></audio>
+            <span className='h-auto w-auto mr-[2px]'>{Math.floor(timer / 60)}:{("0" + (timer % 60)).slice(-2)}</span>
+            <div className='flex justify-center w-10 m-2 control-button' onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
+              <audio ref={audioRef} src={audioUrl} onEnded={() => setIsPlaying(false)}></audio>
               {isPlaying ?
-                (<img src="pauseIcon.svg" alt="Pause" className='h-full w-full' />) :
+                (<img src="pauseIcon.svg" alt="Pause" className='scale-110' />) :
                 (<img src="playIcon.svg" alt="Play" className='h-full w-full' />)
               }
-            </button>
-            <canvas ref={waveformRef} className='h-4/5 w-full px-2'></canvas>
-            <button onClick={(e) => { e.stopPropagation(); handleCompleteRecording(); }} className='flex justify-center h-auto w-10 mx-2'>
-              <img src="appendIcon.png" alt="Complete" className='h-full w-full' />
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); handleDeleteRecording(); }} className='flex justify-center rounded-lg h-auto w-10'>
-              <img src="deleteIcon.svg" alt="Delete" className='h-[60%]' />
-            </button>
+            </div>
+            <div className="relative h-[50px] w-full mx-2" onClick={handleWaveformClick}>
+              <canvas ref={waveformRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+              <canvas ref={dotCanvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+            </div>
+
+            <div className='flex justify-center h-auto w-10 ml-[-4px] control-button scale-110' onClick={(e) => { e.stopPropagation(); handleDeleteRecording(); }}>
+              <img src="deleteIcon.svg" alt="Delete" className='h-[60%] ml-2' />
+            </div>
           </div>
         ) : (
           <div className='flex items-center justify-between w-full'>

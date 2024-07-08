@@ -8,7 +8,6 @@ import EmailButton from './emailButton';
 
 const UserInput = () => {
   const [isRecording, setIsRecording] = useState(false);
-  const [recordingComplete, setRecordingComplete] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
   const [files, setFiles] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -33,8 +32,6 @@ const UserInput = () => {
         <AudioButton
           isRecording={isRecording}
           setIsRecording={setIsRecording}
-          recordingComplete={recordingComplete}
-          setRecordingComplete={setRecordingComplete}
           audioUrl={audioUrl}
           setAudioUrl={setAudioUrl}
           timer={timer}
@@ -43,9 +40,9 @@ const UserInput = () => {
           setIsPlaying={setIsPlaying}
         />
         <AttachmentButton files={files} setFiles={setFiles} setIsEditing={setIsEditing} />
-        <div className='mt-[-8px] mb-[-1px]' >
+        <div className='mt-[-10px] mb-[-2px]' >
           {files.length > 0 && (
-            <button className="xs:text-sm underline text-black-600 self-start " onClick={() => setIsEditing(true)}>Edit Files</button>
+            <button className="text-[14px] underline text-black-600 self-start " onClick={() => setIsEditing(true)}>Edit Files</button>
           )}
           {isEditing && files.length > 0 && (
             <>
@@ -66,9 +63,6 @@ const UserInput = () => {
                       </li>
                     ))}
                   </ul>
-                  {files.length === 0 && (
-                    <p className="text-center text-gray-600">No files to display.</p>
-                  )}
                 </div>
               </animated.div>
             </>
