@@ -285,10 +285,10 @@ const AudioButton = ({
                 (<img src="playIcon.svg" alt="Play" className='h-full w-full' />)
               } */}
             </div>
-            <div className="relative h-[50px] w-full mx-2" onClick={handleWaveformClick}>
+            {/* <div className="relative h-[50px] w-full mx-2" onClick={handleWaveformClick}>
               <canvas ref={waveformRef} className="absolute top-0 left-0 w-full h-full"></canvas>
               <canvas ref={dotCanvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
-            </div>
+            </div> */}
 
             <div className='flex justify-center h-auto w-10 ml-[-4px] control-button scale-110' onClick={(e) => { e.stopPropagation(); handleDeleteRecording(); }}>
               <img src="deleteIcon.svg" alt="Delete" className='h-[60%] ml-2' />
