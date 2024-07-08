@@ -1,3 +1,5 @@
+// 
+
 "use client"
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -82,7 +84,29 @@ const AudioButton = ({
       }
     };
   }, [isRecording]);
-  
+
+  useEffect(() => {
+    const setAudioOutputDevice = async () => {
+      if (audioRef.current && audioRef.current.setSinkId) {
+        try {
+          // Attempt to get the default device or any output device
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioOutputDevices = devices.filter(device => device.kind === 'audiooutput');
+          if (audioOutputDevices.length > 0) {
+            // This example uses the first available output device
+            // You might want to let the user choose or try to select the default device explicitly
+            await audioRef.current.setSinkId(audioOutputDevices[0].deviceId);
+            console.log(`Audio output set to device: ${audioOutputDevices[0].label}`);
+          }
+        } catch (error) {
+          console.error('Error setting audio output device:', error);
+        }
+      }
+    };
+
+    setAudioOutputDevice();
+  }, [audioUrl]);
+
   useEffect(() => {
     const drawWaveform = async () => {
       const canvas = waveformRef.current;
@@ -95,7 +119,6 @@ const AudioButton = ({
       const data = audioBuffer.getChannelData(0);
       const step = Math.ceil(data.length / canvas.width);
       const amp = canvas.height / 2;
-
 
       ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -244,9 +267,13 @@ const AudioButton = ({
   const togglePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause();
+        audioRef.current.pause().catch(error => {
+          console.error('Pause error:', error);
+        });
       } else {
-        audioRef.current.play();
+        audioRef.current.play().catch(error => {
+          console.error('Play error:', error);
+        });
       }
       setIsPlaying(!isPlaying);
     }
@@ -279,16 +306,16 @@ const AudioButton = ({
           <div className='flex items-center justify-between h-full w-full'>
             <span className='h-auto w-auto mr-[2px]'>{Math.floor(timer / 60)}:{("0" + (timer % 60)).slice(-2)}</span>
             <div className='flex justify-center w-10 m-2 control-button' onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
-              <audio ref={audioRef} src={audioUrl} controls onEnded={() => setIsPlaying(false)}></audio>
-              {/* {isPlaying ?
+              <audio ref={audioRef} src={audioUrl} onEnded={() => setIsPlaying(false)}></audio>
+              {isPlaying ?
                 (<img src="pauseIcon.svg" alt="Pause" className='scale-110' />) :
                 (<img src="playIcon.svg" alt="Play" className='h-full w-full' />)
-              } */}
+              }
             </div>
-            {/* <div className="relative h-[50px] w-full mx-2" onClick={handleWaveformClick}>
+            <div className="relative h-[50px] w-full mx-2" onClick={handleWaveformClick}>
               <canvas ref={waveformRef} className="absolute top-0 left-0 w-full h-full"></canvas>
               <canvas ref={dotCanvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
-            </div> */}
+            </div>
 
             <div className='flex justify-center h-auto w-10 ml-[-4px] control-button scale-110' onClick={(e) => { e.stopPropagation(); handleDeleteRecording(); }}>
               <img src="deleteIcon.svg" alt="Delete" className='h-[60%] ml-2' />
