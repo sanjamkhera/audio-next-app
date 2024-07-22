@@ -11,8 +11,11 @@ module.exports = {
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       screens: {
-        'xs': {'max': '389px'},
-        'xm': {'min': '415px', 'max': '431px'},
+        'xs': {'max': '390px'},
+        'xm': {'min': '391px', 'max': '818px'},
+        'sl': {'min': '1024px', 'max': '1179px'},
+        'al': {'min': '818px', 'max': '1023px'},
+        'mx': {'min': '1180px'},
       },
       keyframes: {
         wave: {
@@ -39,6 +42,9 @@ module.exports = {
         justPretty: '#939CA7',
         prettyGray: 'rgba(13, 17, 38, 0.35)',
         placeHolderGray: 'rgba(10, 15, 41, 0.25)',
+      },
+      fontFamily: {
+        sans: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
       },
     },
   },

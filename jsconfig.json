@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["pages/**/*"] // Include all files under pages
 }
