@@ -51,7 +51,7 @@ const AttachmentButton = ({ files, setFiles }) => {
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
       />
       <label htmlFor="file-input" className="block">
-        <div className="w-full min-w-[315px] h-[60px] xm:h-[70px] px-4 rounded-lg flex items-center justify-between font-semibold text-lg ring-2 ring-inset ring-gray-300 cursor-pointer">
+        <div className="w-full min-w-[315px] h-[60px] px-4 rounded-lg flex items-center justify-between font-semibold text-lg ring-2 ring-inset ring-gray-300 cursor-pointer">
           <div className="flex flex-nowrap items-center justify-between">
             <AttachFileIcon fontSize="medium" />
             <div className="pl-3 font-bold text-[20px] xs:text-[18px] whitespace-nowrap">
