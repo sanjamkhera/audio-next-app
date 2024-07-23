@@ -11,7 +11,7 @@ const EmailButton = ({ email, handleEmailChange, handleSendEmail }) => {
   const handleBlur = () => setIsFocused(false);
 
   return (
-    <div className={`w-full min-w-[315px] h-[56px] flex justify-between ${isFocused ? 'outline outline-purple-500 outline-2' : 'border border-customGray'} rounded-lg leading-[1.2] text-[16px]`}>
+    <div className={`w-full min-w-[315px] h-[60px] flex justify-between ${isFocused ? 'outline outline-purple-500 outline-2' : 'border border-customGray'} rounded-lg leading-[1.2] text-[16px]`}>
       <input
         type='email'
         placeholder='Enter your email'
