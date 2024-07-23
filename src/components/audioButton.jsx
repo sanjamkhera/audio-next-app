@@ -278,7 +278,7 @@ const AudioButton = ({
   return (
     <div>
       <button
-        className={`w-full min-w-[315px] h-[60px] rounded-lg text-white px-4 flex items-center justify-between bg-black`}
+        className={`w-full min-w-[315px] h-[56px] rounded-lg text-white px-4 flex items-center justify-between bg-black`}
         onClick={audioUrl ? null : handleToggleRecording} 
       >
         {isRecording ? (

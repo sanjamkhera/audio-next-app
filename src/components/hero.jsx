@@ -96,10 +96,10 @@ const Hero = ({
         <img src="topRightCorner.svg" alt="Logo" className="w-[119px] h-[34px] sl:w-[210px] al:w-[210px] mx:w-[210px] sl:h-[50px] al:h-[50px] mx:h-[50px] mr-4" />
       </div>
       {/* Main Hero Section */}
-      <div className='w-full sl:h-[80%] al:h-[80%] mx:h-[80%] sl:w-[95%] al:w-[95%] mx:w-[95%] flex flex-row xs:flex-col xm:flex-col items-start mt-4 sl:mt-12 al:mt-12 mx:mt-12 sl:gap-5 al:gap-5 mx:gap-12'>
+      <div className='w-full sl:h-[80%] al:h-[80%] mx:h-[80%] sl:w-[95%] al:w-[95%] mx:w-[95%] flex flex-row xs:flex-col xm:flex-col items-start mt-2 sl:mt-12 al:mt-12 mx:mt-12 sl:gap-5 al:gap-5 mx:gap-12'>
         {!isLargeScreen ? (
           <div className='w-full flex flex-col mt-3 px-4'>
-            <div style={{ letterSpacing: '-1.3px' }} className="font-semibold text-pretty text-customGray text-[46px] xs:text-[42px] text-start pb-4 leading-[0.95] xs:leading-[0.93]">
+            <div style={{ letterSpacing: '-1.3px' }} className="font-semibold text-pretty text-customGray text-[46px] xs:text-[42px] text-start pb-3 leading-[0.95] xs:leading-[0.93]">
               <span className="whitespace-nowrap">For the busy</span>
               <div className="whitespace-nowrap">
                 <span className='text-[#3368F0]'> CEOs</span>,
@@ -204,7 +204,7 @@ const Hero = ({
         )}
 
 
-        <div className='w-[90%] flex flex-col justify-start sl:w-1/2 al:w-1/2 mx:w-1/2 sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 gap-4 xs:mx-4 xm:mx-4 xs:my-2 xm:mt-2'>
+        <div className='w-[90%] flex flex-col justify-start sl:w-1/2 al:w-1/2 mx:w-1/2 sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 gap-3 xs:mx-4 xm:mx-4 xs:my-2 xm:mt-0'>
           <div className={`order-first ${'sl:order-2 al:order-2 mx:order-2'}`}>
             <AudioButton
               isRecording={isRecording}
