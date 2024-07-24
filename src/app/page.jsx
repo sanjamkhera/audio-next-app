@@ -73,6 +73,10 @@ const Home = () => {
         <>
           <div className="flex justify-center h-screen overflow-auto mb-6 font-sans">
             <Hero {...commonProps} />
+
+          </div>
+          <div className='sl:hidden al:hidden mx:hidden flex flex-col items-center h-screen overflow-hidden bg-white'>
+            <BeforeAfterSlider className="flex-1" />
           </div>
           <div className='sl:hidden al:hidden mx:hidden flex flex-col items-center h-screen overflow-hidden bg-black'>
             <FeatureList className="flex-1" />
@@ -91,10 +95,7 @@ const Home = () => {
           <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
             <WaitingPageLarge />
           </div>
-
         </div>
-
-
       )}
     </div>
   );

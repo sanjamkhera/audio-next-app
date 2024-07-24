@@ -89,7 +89,7 @@ const Hero = ({
   return (
     <div className='w-full flex flex-col items-center justify-start max-w-[1440px]'>
       {/* NavBar */}
-      <div className="w-full flex flex-row items-center justify-between mx-4 mt-6">
+      <div className="w-full flex flex-row items-center justify-between mx-4 mt-8">
         {/* LOGO, For Local */}
         <img src="logo.svg" alt="Logo" className="w-[119px] h-[34px] sl:w-[200px] al:w-[200px] mx:w-[200px] sl:h-[48px] al:h-[48px] mx:h-[48px] xs:ml-4 xm:ml-4 ml-2" />
         {/* Track Project Button */}
@@ -99,6 +99,7 @@ const Hero = ({
       <div className='w-full sl:h-[80%] al:h-[80%] mx:h-[80%] sl:w-[95%] al:w-[95%] mx:w-[95%] flex flex-row xs:flex-col xm:flex-col items-start justify-between mt-2 sl:mt-12 al:mt-12 mx:mt-12 sl:gap-5 al:gap-5 mx:gap-12'>
         {!isLargeScreen ? (
           <div className='w-full flex flex-col mt-3 px-4'>
+
             <div style={{ letterSpacing: '-1.3px' }} className="font-semibold text-pretty text-customGray text-[46px] xs:text-[42px] text-start pb-3 leading-[0.95] xs:leading-[0.93]">
               <span className="whitespace-nowrap">For the busy</span>
               <div className="whitespace-nowrap">
@@ -126,6 +127,7 @@ const Hero = ({
             </div>
 
             <div className="w-[95%] flex flex-row items-center mt-2 py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e]">
+
               <div className="italic min-w-2/5 flex flex-col items-center justify-center text-[12px] font-small pr-2 border-r border-[#E5E5E5] bg-white">
                 <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied</span></div>
                 <div className=' whitespace-nowrap text-[#AAACB3]'>C-Suite Clients</div>
@@ -165,6 +167,7 @@ const Hero = ({
                 24 hours or less*
               </span>
             </div>
+
           </div>
         ) : (
           <div className='flex flex-col items-start justify-start w-1/2'>
@@ -204,7 +207,7 @@ const Hero = ({
         )}
 
 
-        <div className='w-[90%] flex flex-col justify-start sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 gap-3 xs:mx-4 xm:mx-4 my-2'>
+        <div className='w-[90%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 gap-3 mx-auto my-2'>
           <div className={`order-first ${'sl:order-2 al:order-2 mx:order-2'}`}>
             <AudioButton
               isRecording={isRecording}
