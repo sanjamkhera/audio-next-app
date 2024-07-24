@@ -123,8 +123,8 @@ const BeforeAfterSlider = () => {
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
 
-  const beforeImages = ['/before1.svg', '/before2.svg', '/before3.svg', '/before4.svg', '/before5.svg', '/before6.svg'];
-  const afterImages = ['/after1.svg', '/after2.svg', '/after3.svg', '/after4.svg', '/after5.svg', '/after6.svg'];
+  const beforeImages = ['before1.svg', 'before2.svg', 'before3.svg', 'before4.svg', 'before5.svg', 'before6.svg'];
+  const afterImages = ['after1.svg', 'after2.svg', 'after3.svg', 'after4.svg', 'after5.svg', 'after6.svg'];
 
   const getRandomImage = () => Math.floor(Math.random() * 6);
 
