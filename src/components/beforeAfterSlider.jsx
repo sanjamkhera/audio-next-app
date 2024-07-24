@@ -122,6 +122,7 @@ const BeforeAfterSlider = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
+  const sliderHandleRef = useRef(null);
 
   const beforeImages = ['before1.svg', 'before2.svg', 'before3.svg', 'before4.svg', 'before5.svg', 'before6.svg'];
   const afterImages = ['after1.svg', 'after2.svg', 'after3.svg', 'after4.svg', 'after5.svg', 'after6.svg'];
@@ -140,6 +141,7 @@ const BeforeAfterSlider = () => {
 
   useEffect(() => {
     const slider = sliderRef.current;
+    const handle = sliderHandleRef.current;
 
     const handleMove = (event) => {
       if (!isDragging) return;
@@ -162,22 +164,22 @@ const BeforeAfterSlider = () => {
       setIsDragging(false);
     };
 
-    slider.addEventListener('mousedown', handleStart);
-    slider.addEventListener('mouseup', handleEnd);
-    slider.addEventListener('mousemove', handleMove);
+    handle.addEventListener('mousedown', handleStart);
+    handle.addEventListener('mouseup', handleEnd);
+    handle.addEventListener('mousemove', handleMove);
 
-    slider.addEventListener('touchstart', handleStart, { passive: false });
-    slider.addEventListener('touchend', handleEnd, { passive: false });
-    slider.addEventListener('touchmove', handleMove, { passive: false });
+    handle.addEventListener('touchstart', handleStart, { passive: false });
+    handle.addEventListener('touchend', handleEnd, { passive: false });
+    handle.addEventListener('touchmove', handleMove, { passive: false });
 
     return () => {
-      slider.removeEventListener('mousedown', handleStart);
-      slider.removeEventListener('mouseup', handleEnd);
-      slider.removeEventListener('mousemove', handleMove);
+      handle.removeEventListener('mousedown', handleStart);
+      handle.removeEventListener('mouseup', handleEnd);
+      handle.removeEventListener('mousemove', handleMove);
 
-      slider.removeEventListener('touchstart', handleStart);
-      slider.removeEventListener('touchend', handleEnd);
-      slider.removeEventListener('touchmove', handleMove);
+      handle.removeEventListener('touchstart', handleStart);
+      handle.removeEventListener('touchend', handleEnd);
+      handle.removeEventListener('touchmove', handleMove);
     };
   }, [isDragging]);
 
@@ -195,29 +197,25 @@ const BeforeAfterSlider = () => {
           <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl' ref={sliderRef} style={{ transform: 'rotate(1deg)' }}>
             {/* Wrapper around the images */}
             <div className="w-full h-full relative overflow-hidden select-none" style={{ cursor: isDragging ? 'ew-resize' : 'default' }}>
-              <img src={currentAfter} alt="After" fill priority />
+              <Image src={currentAfter} alt="After" fill priority />
               <div className='w-full h-full absolute top-0 left-0 right-0 max-w-[700px] overflow-hidden select-none' style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
-                <img src={currentBefore} alt="Before" fill priority />
+                <Image src={currentBefore} alt="Before" fill priority />
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center justify-end  w-full bg-[#efefef] my-auto" style={{ transform: 'rotate(1deg)' }}>
+          <div className="flex flex-row items-center justify-end w-full bg-[#efefef] my-auto" style={{ transform: 'rotate(1deg)' }}>
             <div className="flex w-[20%] items-center justify-start pl-5" style={{ transform: 'rotate(1deg)' }}>
               <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
             </div>
 
-            <div className="w-[60%] flex items-center justify-center rounded-full mt-2  mr-5 border-zinc-500 bg-gradient-to-b from-gray-300 to-white transform rotate-1">
+            <div className="w-[60%] flex items-center justify-center rounded-full mt-2 mr-5 border-zinc-500 bg-gradient-to-b from-gray-300 to-white transform rotate-1 cursor-ew-resize" ref={sliderHandleRef} style={{ left: `calc(${sliderPosition}% - 1px)` }}>
               <img src="slider.svg" alt="Slider" className="cursor-pointer -mt-3 -mb-3" />
             </div>
           </div>
         </div>
-
       </div>
-
-
     </div>
   );
 };
 
 export default BeforeAfterSlider;
-
