@@ -195,9 +195,9 @@ const BeforeAfterSlider = () => {
           <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl' ref={sliderRef} style={{ transform: 'rotate(1deg)' }}>
             {/* Wrapper around the images */}
             <div className="w-full h-full relative overflow-hidden select-none" style={{ cursor: isDragging ? 'ew-resize' : 'default' }}>
-              <Image src={currentAfter} alt="After" fill priority />
+              <img src={currentAfter} alt="After" fill priority />
               <div className='w-full h-full absolute top-0 left-0 right-0 max-w-[700px] overflow-hidden select-none' style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
-                <Image src={currentBefore} alt="Before" fill priority />
+                <img src={currentBefore} alt="Before" fill priority />
               </div>
             </div>
           </div>
