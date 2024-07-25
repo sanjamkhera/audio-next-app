@@ -14,8 +14,8 @@ const BeforeAfterSlider = () => {
   const sliderRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const beforeImages = ['/before1.svg', '/before2.svg', '/before3.svg', '/before4.svg', '/before5.svg', '/before6.svg'];
-  const afterImages = ['/after1.svg', '/after2.svg', '/after3.svg', '/after4.svg', '/after5.svg', '/after6.svg'];
+  const beforeImages = ['before1.svg', 'before2.svg', 'before3.svg', 'before4.svg', 'before5.svg', 'before6.svg'];
+  const afterImages = ['after1.svg', 'after2.svg', 'after3.svg', 'after4.svg', 'after5.svg', 'after6.svg'];
 
   const getRandomImage = () => Math.floor(Math.random() * 6);
 
@@ -80,7 +80,7 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider Parent */}
-      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100% + 15px) center' }}>
+      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-to-UI-app/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100% + 15px) center' }}>
         <div className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl" style={{ transform: 'rotate(-1deg)' }} ref={sliderRef}>
           <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl'  style={{ transform: 'rotate(1deg)' }}>
 
