@@ -1,8 +1,5 @@
-
-
-
 "use client"
-import React, { useState, useRef, useEffect, use } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import CachedIcon from '@mui/icons-material/Cached';
 
@@ -33,22 +30,20 @@ const BeforeAfterSlider = () => {
     const slider = sliderRef.current;
     const button = buttonRef.current;
 
-  
     const handleMoveButton = (event) => {
       if (!isDragging) return;
-      const buttonParentRect = button.parentElement.getBoundingClientRect();
       const sliderParentRect = slider.parentElement.getBoundingClientRect();
+      const buttonParentRect = button.parentElement.getBoundingClientRect();
 
       event.preventDefault();
       const clientX = event.type.startsWith('touch') ? event.touches[0].clientX : event.clientX;
   
-      // Adjust for any initial offset or padding in the calculation
-      const initialOffset = 8; 
-      const buttonX = Math.max(0, Math.min(clientX - buttonParentRect.left - initialOffset, buttonParentRect.width));
+      // Calculate button position relative to its parent
+      const buttonX = Math.max(0, Math.min(clientX - buttonParentRect.left, buttonParentRect.width));
       const buttonPercent = (buttonX / buttonParentRect.width) * 100;
-  
-      // Ensure the slider's starting position is correctly adjusted
-      const sliderX = (buttonPercent / 100) * (sliderParentRect.width - initialOffset);
+
+      // Calculate the corresponding slider position
+      const sliderX = (buttonPercent / 100) * (sliderParentRect.width);
       const sliderPercent = (sliderX / sliderParentRect.width) * 100;
   
       setButtonPosition(buttonPercent);
@@ -58,20 +53,16 @@ const BeforeAfterSlider = () => {
     const handleStart = () => setIsDragging(true);
     const handleEnd = () => setIsDragging(false);
   
-  
     button.addEventListener('touchstart', handleStart, { passive: false });
     button.addEventListener('touchend', handleEnd, { passive: false });
     button.addEventListener('touchmove', handleMoveButton, { passive: false });
   
     return () => {
-
-  
       button.removeEventListener('touchstart', handleStart);
       button.removeEventListener('touchend', handleEnd);
       button.removeEventListener('touchmove', handleMoveButton);
     };
   }, [isDragging]);
-
 
   return (
     <div className='w-full h-full flex flex-col items-center justify-start mt-1 bg-white'>
@@ -84,7 +75,7 @@ const BeforeAfterSlider = () => {
       {/* Slider Parent */}
       <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-to-UI-app/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100% + 15px) center' }}>
         <div className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl" style={{ transform: 'rotate(-1deg)' }} ref={sliderRef}>
-          <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl'  style={{ transform: 'rotate(1deg)' }}>
+          <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl' style={{ transform: 'rotate(1deg)' }}>
 
             {/* Wrapper around the images */}
             <div className="w-full h-full relative overflow-hidden select-none" style={{ cursor: isDragging ? 'ew-resize' : 'default' }}>
@@ -101,20 +92,16 @@ const BeforeAfterSlider = () => {
               <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
             </div>
 
-            <div className="h-[60%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-4" ref={buttonRef} >
+            <div className="h-[60%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-4" ref={buttonRef}>
               <button className='absolute cursor-pointer -mt-3 -mb-3 -rotate-1' style={{ left: `calc(${buttonPosition}% - 49px)` }}>
                 <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
               </button>
             </div>
           </div>
         </div>
-
       </div>
-
-
     </div>
   );
 };
 
 export default BeforeAfterSlider;
-
