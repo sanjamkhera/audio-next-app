@@ -43,11 +43,12 @@ const BeforeAfterSlider = () => {
       const clientX = event.type.startsWith('touch') ? event.touches[0].clientX : event.clientX;
   
       // Adjust for any initial offset or padding in the calculation
-      const buttonX = Math.max(0, Math.min(clientX - buttonParentRect.left, buttonParentRect.width));
+      const initialOffset = 8; 
+      const buttonX = Math.max(0, Math.min(clientX - buttonParentRect.left - initialOffset, buttonParentRect.width));
       const buttonPercent = (buttonX / buttonParentRect.width) * 100;
   
       // Ensure the slider's starting position is correctly adjusted
-      const sliderX = (buttonPercent / 100) * (sliderParentRect.width);
+      const sliderX = (buttonPercent / 100) * (sliderParentRect.width - initialOffset);
       const sliderPercent = (sliderX / sliderParentRect.width) * 100;
   
       setButtonPosition(buttonPercent);
@@ -63,6 +64,7 @@ const BeforeAfterSlider = () => {
     button.addEventListener('touchmove', handleMoveButton, { passive: false });
   
     return () => {
+
   
       button.removeEventListener('touchstart', handleStart);
       button.removeEventListener('touchend', handleEnd);
@@ -91,6 +93,7 @@ const BeforeAfterSlider = () => {
                 <Image src={currentBefore} alt="Before" fill priority />
               </div>
             </div>
+
           </div>
           <div className="flex flex-row items-center justify-end w-full bg-[#efefef] my-auto rotate-1">
 
