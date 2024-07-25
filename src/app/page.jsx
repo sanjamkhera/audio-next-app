@@ -71,7 +71,7 @@ const Home = () => {
     <div className='min-w-[315px]'>
       {!isEstimateRequested ? (
         <>
-          <div className="flex justify-center h-screen overflow-auto mb-6 font-sans">
+          <div className="flex justify-center h-screen overflow-auto scroll-smooth mb-6 font-sans">
             <Hero {...commonProps} />
 
           </div>

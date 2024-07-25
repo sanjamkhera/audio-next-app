@@ -5,7 +5,6 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 const AttachmentButtonLarge = ({ files, setFiles }) => {
   const [error, setError] = useState('');
 
-  // Handle file input change
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
     const validFiles = selectedFiles.filter(
