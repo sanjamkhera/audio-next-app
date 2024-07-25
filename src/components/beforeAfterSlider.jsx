@@ -5,7 +5,6 @@ import CachedIcon from '@mui/icons-material/Cached';
 
 const BeforeAfterSlider = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [buttonPosition, setButtonPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
 
   const sliderRef = useRef(null);
@@ -33,30 +32,31 @@ const BeforeAfterSlider = () => {
     const handleMoveButton = (event) => {
       if (!isDragging) return;
       const sliderParentRect = slider.parentElement.getBoundingClientRect();
-      const buttonParentRect = button.parentElement.getBoundingClientRect();
-
+      const buttonWidth = button.getBoundingClientRect().width;
+    
       event.preventDefault();
       const clientX = event.type.startsWith('touch') ? event.touches[0].clientX : event.clientX;
-  
-      // Calculate button position relative to its parent
-      const buttonX = Math.max(0, Math.min(clientX - buttonParentRect.left, buttonParentRect.width));
-      const buttonPercent = (buttonX / buttonParentRect.width) * 100;
-
-      // Calculate the corresponding slider position
-      const sliderX = (buttonPercent / 100) * (sliderParentRect.width);
-      const sliderPercent = (sliderX / sliderParentRect.width) * 100;
-  
-      setButtonPosition(buttonPercent);
+    
+      // Calculate button's new X position relative to the slider, centered on the touch point
+      let buttonX = clientX - sliderParentRect.left - (buttonWidth / 2);
+    
+      // Constrain the button's position to the slider's bounds
+      buttonX = Math.max(0, buttonX); // Prevent moving beyond the left edge
+      buttonX = Math.min(sliderParentRect.width - buttonWidth, buttonX); // Prevent moving beyond the right edge
+    
+      // Calculate the new slider position as a percentage
+      const sliderPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
+    
       setSliderPosition(sliderPercent);
     };
-  
+
     const handleStart = () => setIsDragging(true);
     const handleEnd = () => setIsDragging(false);
-  
+
     button.addEventListener('touchstart', handleStart, { passive: false });
     button.addEventListener('touchend', handleEnd, { passive: false });
     button.addEventListener('touchmove', handleMoveButton, { passive: false });
-  
+
     return () => {
       button.removeEventListener('touchstart', handleStart);
       button.removeEventListener('touchend', handleEnd);
@@ -92,8 +92,8 @@ const BeforeAfterSlider = () => {
               <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
             </div>
 
-            <div className="h-[60%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-4" ref={buttonRef}>
-              <button className='absolute cursor-pointer -mt-3 -mb-3 -rotate-1' style={{ left: `calc(${buttonPosition}% - 49px)` }}>
+            <div className="h-[60%] w-[55%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-8" ref={buttonRef}>
+              <button className='absolute cursor-pointer -mt-3 -mb-3 -rotate-1' style={{ left: `calc(${sliderPosition}% - 49px)` }}>
                 <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
               </button>
             </div>
