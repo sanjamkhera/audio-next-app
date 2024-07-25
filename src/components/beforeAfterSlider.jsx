@@ -92,9 +92,9 @@ const BeforeAfterSlider = () => {
               <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
             </div>
 
-            <div className="h-[60%] w-[55%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-8" ref={buttonRef}>
+            <div className="h-[60%] w-[53%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 ml-4 pl-6 mr-8" ref={buttonRef}>
               <button className='absolute cursor-pointer -mt-3 -mb-3 -rotate-1' style={{ left: `calc(${sliderPosition}% - 49px)` }}>
-                <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
+                <img src="slider.svg" alt="Slider" className="cursor-pointer ml-5" />
               </button>
             </div>
           </div>
