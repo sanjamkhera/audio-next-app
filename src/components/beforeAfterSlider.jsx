@@ -74,7 +74,7 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider Parent */}
-      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-to-UI-app/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100%) center' }}>
+      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-to-UI-app/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100%) center -4px' }}>
         <div className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl" style={{ transform: 'rotate(-1deg)' }} ref={sliderRef}>
           <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl' style={{ transform: 'rotate(1deg)' }}>
 
