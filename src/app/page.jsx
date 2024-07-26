@@ -68,21 +68,20 @@ const Home = () => {
   };
 
   return (
-    <div className='min-w-[315px]'>
+    <div className='min-w-[315px] scroll-smooth'>
       {!isEstimateRequested ? (
         <>
-          <div className="flex justify-center h-screen overflow-auto scroll-smooth mb-6 font-sans">
-            <Hero {...commonProps} />
-
+          <div className="flex justify-center scroll-smooth h-100vh font-sans">
+            <Hero {...commonProps} className="flex-1" />
           </div>
-          <div className='sl:hidden al:hidden mx:hidden flex flex-col items-center h-screen overflow-hidden bg-white'>
+          <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center overflow-hidden bg-white'>
             <BeforeAfterSlider className="flex-1" />
           </div>
-          <div className='sl:hidden al:hidden mx:hidden flex flex-col items-center h-screen overflow-hidden bg-black'>
+          <div className='sl:hidden al:hidden mx:hidden flex flex-col h-screen items-center overflow-hidden bg-black z-40'>
             <FeatureList className="flex-1" />
             <FeatureButtons className="flex-1" />
           </div>
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "bg-[url('/audio-to-UI-app/backgroundLg.svg')]" }}>
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "bg-[url('/audio-next-app/backgroundLg.svg')]" }}>
             <FeatureListLarge />
           </div>
         </>

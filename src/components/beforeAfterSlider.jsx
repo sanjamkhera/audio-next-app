@@ -14,7 +14,6 @@ const BeforeAfterSlider = () => {
   const afterImages = ['after1.svg', 'after2.svg', 'after3.svg', 'after4.svg', 'after5.svg', 'after6.svg'];
 
   const getRandomImage = () => Math.floor(Math.random() * 6);
-
   const randomIndex = getRandomImage();
   const [currentBefore, setCurrentBefore] = useState(beforeImages[randomIndex]);
   const [currentAfter, setCurrentAfter] = useState(afterImages[randomIndex]);
@@ -37,15 +36,10 @@ const BeforeAfterSlider = () => {
     
       event.preventDefault();
       const clientX = event.type.startsWith('touch') ? event.touches[0].clientX : event.clientX;
-    
-      // Calculate button's new X position relative to the slider, centered on the touch point
       let buttonX = clientX - sliderParentRect.left - (buttonWidth / 2);
     
-      // Constrain the button's position to the slider's bounds
-      buttonX = Math.max(0, buttonX); // Prevent moving beyond the left edge
-      buttonX = Math.min(sliderParentRect.width - buttonWidth, buttonX); // Prevent moving beyond the right edge
-    
-      // Calculate the new slider position as a percentage
+      buttonX = Math.max(0, buttonX); 
+      buttonX = Math.min(sliderParentRect.width - buttonWidth, buttonX);
       const sliderPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
     
       setSliderPosition(sliderPercent);
@@ -66,7 +60,7 @@ const BeforeAfterSlider = () => {
   }, [isDragging]);
 
   return (
-    <div className='w-full h-full flex flex-col items-center justify-start mt-1 bg-white'>
+    <div className='w-full h-screen flex flex-col items-center justify-start mt-1 bg-white scroll-smooth'>
 
       <div className="w-[90%] flex justify-between bg-white">
         <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
@@ -74,7 +68,7 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider Parent */}
-      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-to-UI-app/ipad.svg')] bg-cover bg-right" style={{ backgroundPosition: 'calc(100%) center -24px' }}>
+      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-next-app/ipad.svg')] bg-cover bg-right pr-4">
         <div className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl" style={{ transform: 'rotate(-1deg)' }} ref={sliderRef}>
           <div className='w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl' style={{ transform: 'rotate(1deg)' }}>
 
@@ -87,13 +81,13 @@ const BeforeAfterSlider = () => {
             </div>
 
           </div>
-          <div className="flex flex-row items-center justify-end w-full bg-[#efefef] my-auto rotate-1">
+          <div className="flex flex-row items-center justify-end w-full my-auto rotate-1">
 
             <div className="flex w-auto items-center justify-center rotate-1 mr-6">
               <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
             </div>
 
-            <div className="h-[60%] w-[53%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-300 to-white rotate-1 mx-6" ref={buttonRef}>
+            <div className="h-[60%] w-[53%] flex items-center justify-center rounded-full mt-2 border-zinc-500 bg-gradient-to-b from-gray-400 to-white rotate-1 mx-6" ref={buttonRef}>
               <button className='absolute cursor-pointer -mt-3 -mb-3 -rotate-1' style={{ left: `calc(${sliderPosition}% - 49px)` }}>
                 <img src="slider.svg" alt="Slider" className="cursor-pointer ml-5 " />
               </button>

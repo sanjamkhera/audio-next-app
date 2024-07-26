@@ -87,7 +87,7 @@ const Hero = ({
 
 
   return (
-    <div className='w-full flex flex-col items-center justify-start max-w-[1440px]'>
+    <div className='w-full flex flex-col items-center h-screen justify-start max-w-[1440px]'>
       {/* NavBar */}
       <div className="w-full flex flex-row items-center justify-between mx-4 mt-8">
         {/* LOGO, For Local */}

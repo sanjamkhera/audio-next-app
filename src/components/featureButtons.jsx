@@ -24,7 +24,7 @@ const FeatureButtons = () => {
   };
 
   return (
-    <div className="w-full h-full items-center justify-start bg-cover bg-[url('/audio-to-UI-app/background.svg')] bg-black">
+    <div className="w-full h-full items-center justify-start bg-cover bg-[url('/audio-next-app/background.svg')] bg-black">
       <div className="w-full h-full flex flex-col items-center justify-center gap-4 pb-8">
         <button 
           onClick={handleShareOnLinkedIn}
