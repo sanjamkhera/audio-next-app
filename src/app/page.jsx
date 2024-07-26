@@ -71,7 +71,7 @@ const Home = () => {
     <div className='min-w-[315px] scroll-smooth'>
       {!isEstimateRequested ? (
         <>
-          <div className="flex justify-center scroll-smooth h-100vh font-sans">
+          <div className="flex justify-center scroll-smooth font-sans">
             <Hero {...commonProps} className="flex-1" />
           </div>
           <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center overflow-hidden bg-white'>

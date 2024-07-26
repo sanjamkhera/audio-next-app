@@ -3,13 +3,12 @@ import React from 'react';
 
 const WaitingPage = () => {
   return (
-    <div className='flex flex-col items-center'>
-      <div className="w-full flex items-center justify-between mx-4 xs:mt-4 mt-6">
+    <div className='w-full flex flex-col items-center'>
+      <div className="w-full flex flex-row items-center justify-between mx-4 mt-8">
         {/* LOGO, For Local */}
-        <img src="logo.svg" alt="Logo" className="w-[119px] h-[34px] ml-4" />
-
-        {/* Top Right Corner Image */}
-        <img src="topRightCorner.svg" alt="Logo" className="w-[119px] h-[34px] mr-4" />
+        <img src="logo.svg" alt="Logo" className="w-[119px] h-[34px] sl:w-[200px] al:w-[200px] mx:w-[200px] sl:h-[48px] al:h-[48px] mx:h-[48px] xs:ml-4 xm:ml-4 ml-2" />
+        {/* Track Project Button */}
+        <img src="topRightCorner.svg" alt="Logo" className="w-[119px] h-[34px] sl:w-[210px] al:w-[210px] mx:w-[210px] sl:h-[50px] al:h-[50px] mx:h-[50px] mr-4" />
       </div>
 
       {/* Custom Paragraph */}

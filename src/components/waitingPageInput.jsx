@@ -24,7 +24,7 @@ const WaitingPageInput = ({ onStartNewProject }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-start gap-4 pt-2 pb-7 sl:pt-5 al:pt-5 mx:pt-10">
+    <div className="w-full flex flex-col items-center justify-start gap-4 pt-8 pb-7 sl:pt-5 al:pt-5 mx:pt-10">
       <button 
         onClick={handleStartNewProject}
         className="sl:w-[90%] al:w-[90%] mx:w-[90%] w-[75%] h-[52px] bg-white text-[#14151A] font-medium text-[18px] py-2 px-6 rounded-lg flex items-center justify-center gap-2 ring-2 ring-inset ring-gray-300 cursor-pointer whitespace-nowrap"
