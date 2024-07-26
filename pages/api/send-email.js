@@ -76,12 +76,11 @@ const handler = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Replace with your actual Gmail credentials or use environment variables
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'sanjam.khera@gmail.com',
-        pass: 'npvn yfjk jupe jcde'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
