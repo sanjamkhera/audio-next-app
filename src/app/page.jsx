@@ -81,7 +81,7 @@ const Home = () => {
             <FeatureList className="flex-1" />
             <FeatureButtons className="flex-1" />
           </div>
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "bg-[url('/audio-next-app/backgroundLg.svg')]" }}>
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "bg-[url('/audio-app/backgroundLg.svg')]" }}>
             <FeatureListLarge />
           </div>
         </>
