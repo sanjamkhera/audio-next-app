@@ -68,7 +68,7 @@ const Home = () => {
   };
 
   return (
-    <div className='min-w-[315px] scroll-smooth'>
+    <div className='min-w-[375px] scroll-smooth'>
       {!isEstimateRequested ? (
         <>
           <div className="flex justify-center scroll-smooth font-sans">
@@ -92,7 +92,7 @@ const Home = () => {
             <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
           </div>
           <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
-            <WaitingPageLarge />
+            <WaitingPageLarge  handleResetStates={handleResetStates}  />
           </div>
         </div>
       )}

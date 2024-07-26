@@ -69,14 +69,14 @@ const BeforeAfterSlider = () => {
   }, [isDragging]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-start mt-1 bg-white scroll-smooth">
+    <div className="w-full min-w-[375px] h-screen flex flex-col items-center justify-start mt-1 bg-white scroll-smooth ">
       <div className="w-[90%] flex justify-between bg-white">
         <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
         <img src="24hr.svg" alt="24 hour" className="mr-2" />
       </div>
 
       {/* Slider Parent */}
-      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-next-app/ipad.svg')] bg-cover bg-right pr-4">
+      <div className="w-full h-full flex flex-col items-center justify-start bg-[url('/audio-next-app/ipad.svg')] bg-cover bg-right pr-4 ">
         <div
           className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl"
           style={{ transform: "rotate(-1deg)" }}
