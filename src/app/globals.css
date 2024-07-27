@@ -16,7 +16,7 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, green, #31c26e, rgb(48, 48, 196), #873DE6, transparent, transparent);
+  background: linear-gradient(to right, green, #31c26e, rgb(48, 48, 196), #873DE6, transparent);
   background-size: 200% 100%;
   animation: loadingAnimation 2s linear forwards;
   z-index: 9999; /* Ensure it is above other elements */
