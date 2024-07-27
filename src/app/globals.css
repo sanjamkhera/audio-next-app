@@ -8,3 +8,26 @@
 @import 'tailwindcss/utilities';
 
 /* Your custom styles here */
+
+/* Add this to your global CSS or a CSS module */
+.loading-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, green, #31c26e, rgb(48, 48, 196), #873DE6, transparent, transparent);
+  background-size: 200% 100%;
+  animation: loadingAnimation 2s linear forwards;
+  z-index: 9999; /* Ensure it is above other elements */
+}
+
+@keyframes loadingAnimation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+

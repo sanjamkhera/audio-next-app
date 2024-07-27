@@ -9,11 +9,12 @@ const handler = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    // Replace with your actual Gmail credentials or use environment variables
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      service: 'Gmail', // Ensure correct casing: 'Gmail', not 'Gmail' or 'gmail'
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: 'sanjam.khera@gmail.com',
+        pass: 'npvn yfjk jupe jcde'
       }
     });
 
@@ -80,11 +81,11 @@ const handler = async (req, res) => {
 
     const mailOptions = {
       from: 'sanjam.khera@gmail.com',
-      to: [email, 'sanjam.khera@gmail.com'], // Send to both user and yourself
+      to: [email, 'sanjam.khera@gmail.com'],
       subject: 'Your Estimate Request',
       html: htmlContent,
       attachments: [
-        ...attachments // Include the audio and file attachments
+        ...attachments
       ]
     };
 
@@ -103,4 +104,3 @@ const handler = async (req, res) => {
 };
 
 export default handler;
-

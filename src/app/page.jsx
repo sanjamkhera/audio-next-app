@@ -12,6 +12,7 @@ import WaitingPageLarge from '../components/waitingPageLarge';
 const Home = () => {
   const [isEstimateRequested, setIsEstimateRequested] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -65,10 +66,12 @@ const Home = () => {
     email,
     setEmail,
     onGetEstimate: handleGetEstimate,
+    setIsLoading,
   };
 
   return (
     <div className='min-w-[375px] scroll-smooth'>
+      {isLoading && <div className="loading-line"></div>}
       {!isEstimateRequested ? (
         <>
           <div className="flex justify-center scroll-smooth font-sans">
@@ -92,7 +95,7 @@ const Home = () => {
             <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
           </div>
           <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
-            <WaitingPageLarge  handleResetStates={handleResetStates}  />
+            <WaitingPageLarge handleResetStates={handleResetStates} />
           </div>
         </div>
       )}

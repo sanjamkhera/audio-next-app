@@ -21,7 +21,8 @@ const Hero = ({
   setTimer,
   email,
   setEmail,
-  onGetEstimate
+  onGetEstimate,
+  setIsLoading
 }) => {
 
   const [isEditing, setIsEditing] = useState(false);
@@ -258,7 +259,7 @@ const Hero = ({
           </div>
 
           <div className="flex order-last ">
-            <EmailButton email={email} handleEmailChange={handleEmailChange} handleSendEmail={handleSendEmail} />
+            <EmailButton email={email} handleEmailChange={handleEmailChange} handleSendEmail={handleSendEmail} setIsLoading={setIsLoading} />
           </div>
         </div>
 
