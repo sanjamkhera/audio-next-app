@@ -23,35 +23,35 @@ const FeatureListLarge = () => {
     <div className="w-[95%] h-full flex flex-col max-w-[1440px]">
       <div className="w-[50%] h-2/3 font-bold text-[22px] flex flex-col justify-start text-white mt-16 sl:mt-12 al:mt-12">
         <div className="pt-[22px] pb-[26px] whitespace-nowrap">
-          <span className="text-[22px] leading-[1.2] ">*24 hour delivery</span>
-          <span className="text-white text-opacity-60 leading-[1.2] text-[22px] xs:text-[18px]">(usually less), or money back guaranteed</span>
+          <span className="text-[22px] leading-[1.2]">*24 hour delivery</span>
+          <span className="text-white text-opacity-60 leading-[1.2] text-[22px] xs:text-[18px] pl-1">(usually less), or money back guaranteed</span>
         </div>
         <hr className="border-t border-white border-opacity-25 w-full" />
         <div className="pt-[22px] pb-[26px] whitespace-nowrap">
           <span className="text-[22px] leading-[1.2] ">3-5 high-fidelity screens</span>
-          <span className="text-white text-opacity-60 leading-[1.2] text-[22px]">(max), plus 1 round of revisions</span>
+          <span className="text-white text-opacity-60 leading-[1.2] text-[22px] pl-1">(max), plus 1 round of revisions</span>
         </div>
         <hr className="border-t border-white border-opacity-25 w-full" />
         <div className="pt-[22px] pb-[26px] whitespace-nowrap">
           <span className="text-[22px] leading-[1.2] ">100% confidentiality -</span>
-          <span className="text-white text-opacity-60 leading-[1.2] text-[22px]">NDA included as part of the contract</span>
+          <span className="text-white text-opacity-60 leading-[1.2] text-[22px] pl-1">NDA included as part of the contract</span>
         </div>
         <hr className="border-t border-white border-opacity-25 w-full" />
         <div className="pt-[22px] pb-[26px] whitespace-nowrap">
           <div className="text-white text-opacity-60 leading-[1.2] text-[22px] pt-[2px]">
-            <span className="text-[22px] text-white text-opacity-60 leading-[1.2] ">Interactive,</span>
-            <span className="text-white leading-[1.2] text-[22px]">clickable Figma prototypes</span>  + artboard access
+            <span className="text-[22px] text-white text-opacity-60 leading-[1.2]">Interactive,</span>
+            <span className="text-white leading-[1.2] text-[22px] pl-1">clickable Figma prototypes</span>  + artboard access
           </div>
         </div>
         <hr className="border-t border-white border-opacity-25 w-full" />
         <div className="pt-[22px] pb-[26px] whitespace-nowrap">
           <span className="text-[22px] leading-[1.2] ">Full-rights</span>
-          <span className="text-white text-opacity-60 leading-[1.2] text-[22px]">to all digital designs, fonts and assets</span>
+          <span className="text-white text-opacity-60 leading-[1.2] text-[22px] pl-1">to all digital designs, fonts and assets</span>
         </div>
         <hr className="border-t border-white border-opacity-25 w-full" />
         <div className="font-medium py-[18px] whitespace-nowrap">
           <span className="italic text-[15px] leading-[1.5] ">Coming soon:</span>
-          <span className="text-white text-opacity-45 leading-[1.2] text-[15px]">Code export, animations, project history, client dashboard, downloads & more</span>
+          <span className="text-white text-opacity-45 leading-[1.2] text-[15px] pl-1">Code export, animations, project history, client dashboard, downloads & more</span>
         </div>
       </div>
 

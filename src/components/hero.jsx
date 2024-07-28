@@ -172,7 +172,7 @@ const Hero = ({
           </div>
         ) : (
           <div className='flex flex-col items-start justify-start w-1/2'>
-            <div style={{ letterSpacing: '-1.3px' }} className="flex flex-col al:font-semibold sl:font-semibold h-auto font-bold text-pretty text-customGray mx:text-[56px] sl:text-[50px] al:text-[38px] text-[60px] text-start pb-4 leading-[0.95]">
+            <div style={{ letterSpacing: '-1.3px' }} className="flex flex-col al:font-semibold sl:font-semibold h-auto font-bold text-pretty text-customGray mx:text-[56px] sl:text-[50px] al:text-[40px] text-[60px] text-start pb-4 leading-[0.95] pt-6">
               <span className="whitespace-nowrap">For the busy</span>
               <div className="whitespace-nowrap">
                 <span className='text-[#3368F0]'> CEOs</span>,
@@ -208,7 +208,7 @@ const Hero = ({
         )}
 
 
-        <div className='w-[90%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 gap-3 mx-auto my-2'>
+        <div className='w-[90%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 xs:mx-auto xm:mx-auto gap-3 my-2'>
           <div className={`order-first ${'sl:order-2 al:order-2 mx:order-2'}`}>
             <AudioButton
               isRecording={isRecording}
@@ -224,7 +224,7 @@ const Hero = ({
             />
           </div>
           {/* Conditionally render AttachmentButton or AttachmentButtonLarge based on screen size */}
-          <div className="pt-8 pb-4 min-h-[25%] hidden sl:flex al:flex mx:flex border-2 border-dashed border-gray-300 rounded-lg">
+          <div className="sl:mt-4 al:mt-0 mx:mt-6 pt-10 pb-4 min-h-[25%] hidden sl:flex al:flex mx:flex border-2 border-dashed border-gray-300 rounded-lg">
             <AttachmentButtonLarge files={files} setFiles={setFiles} />
           </div>
           <div className="flex flex-col w-full h-auto sl:hidden al:hidden mx:hidden">
@@ -264,7 +264,7 @@ const Hero = ({
         </div>
 
       </div>
-      <div className='hidden sl:flex al:flex mx:flex w-[90%] flex-col justify-start mb-9'>
+      <div className='hidden sl:flex al:flex mx:flex w-[90%] flex-col justify-start mb-12'>
         <div className="italic flex items-center text-[12px] font-small pr-2 border-b border-[#E5E5E5] bg-white pb-2">
           <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied C-Suite Clients</span></div>
         </div>

@@ -63,7 +63,7 @@ const AttachmentButtonLarge = ({ files, setFiles }) => {
   };
 
   return (
-    <div className='w-full flex flex-col justify-center cursor-pointer'>
+    <div className='w-full flex flex-col justify-center cursor-pointer py-8'>
       <div
         className="w-full h-full flex flex-col items-center justify-center relative p-8"
         onDragOver={handleDragOver}
