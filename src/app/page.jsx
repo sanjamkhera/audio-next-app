@@ -70,7 +70,7 @@ const Home = () => {
   };
 
   return (
-    <div className='min-w-[375px] scroll-smooth'>
+    <div className='min-w-[375px] xm:max-w-[490px] scroll-smooth xm:mx-auto'>
       {isLoading && <div className="loading-line"></div>}
       {!isEstimateRequested ? (
         <>
