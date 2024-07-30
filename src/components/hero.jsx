@@ -137,21 +137,22 @@ const Hero = ({
               <div className='flex flex-row overflow-hidden'>
                 {/* animate-smoothScroll */}
                 <div className=' flex gap-6 animate-smoothScroll'>
-                  <img src="payPal.svg" alt="PayPal" className="min-w-svg " />
-                  <img src="brand.svg" alt="Brand" className="min-w-svg" />
-                  <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
+                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
+                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
+
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-                  <img src="brand.svg" alt="Brand" className="min-w-svg" />
-                  <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
+                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
+                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-                  <img src="brand.svg" alt="Brand" className="min-w-svg" />
-                  <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
+                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
+                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.svg" alt="PayPal" className="min-w-svg" />
-                  <img src="brand.svg" alt="Brand" className="min-w-svg" />
-                  <img src="achieve.svg" alt="Achieve" className="min-w-svg" />
+                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
+                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
                 </div>
               </div>
 
