@@ -125,7 +125,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import styles from "./beforeAfterSlider.module.css";
 
 const LoadingOverlay = () => (
-  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl z-10">
     <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
   </div>
 );
