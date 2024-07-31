@@ -5,7 +5,6 @@ import { useAudioRecorder } from 'react-audio-voice-recorder';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
-import StopIcon from '@mui/icons-material/Stop';
 
 const AudioButton = ({
   isRecording,
@@ -26,6 +25,7 @@ const AudioButton = ({
   const mediaRecorderRef = useRef(null);
 
   const [playbackTime, setPlaybackTime] = useState(0);
+  const [error, setError] = useState(null);
 
   const recorderControls = useAudioRecorder({
     audioTrackConstraints: {
@@ -41,24 +41,44 @@ const AudioButton = ({
 
   const { startRecording, stopRecording, recordingBlob, isRecording: recorderIsRecording, mediaRecorder } = recorderControls;
 
+  // useEffect(() => {
+  //   if (recordingBlob && recordingBlob.size > 0) {
+  //     const audioUrl = URL.createObjectURL(recordingBlob);
+  //     setAudioUrl(audioUrl);
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       const base64data = reader.result.split(',')[1]; 
+  //       setAudioBase64(base64data);
+  //     };
+  //     reader.readAsDataURL(recordingBlob);
+  //   } else {
+  //     setAudioUrl(null);
+  //   }
+  // }, [recordingBlob]);
+
   useEffect(() => {
-    if (recordingBlob && recordingBlob.size > 0) {
+    if (recordingBlob && recordingBlob.size > 0 && timer >= 15) {
       const audioUrl = URL.createObjectURL(recordingBlob);
       setAudioUrl(audioUrl);
-
-      // Convert audioBlob to base64
+  
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64data = reader.result.split(',')[1]; // Extract base64 part
+        const base64data = reader.result.split(',')[1];
         setAudioBase64(base64data);
       };
       reader.readAsDataURL(recordingBlob);
-      // Convert audioBlob to base64
-
+  
+      setError(null);
+    } else if (recordingBlob && recordingBlob.size > 0) {
+      // This case handles when the recording is less than 15 seconds
+      setError("Recording must be at least 15 seconds long.");
+      setAudioUrl(null);
+      setAudioBase64(null);
     } else {
       setAudioUrl(null);
+      setError(null);
     }
-  }, [recordingBlob]);
+  }, [recordingBlob, timer]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -68,7 +88,6 @@ const AudioButton = ({
         setTimer(Math.floor(audio.currentTime));
       };
       audio.addEventListener('timeupdate', updatePlaybackTime);
-
       return () => {
         audio.removeEventListener('timeupdate', updatePlaybackTime);
       };
@@ -78,7 +97,6 @@ const AudioButton = ({
   const handleWaveformClick = (e) => {
     const waveform = waveformRef.current;
     if (!waveform) return;
-
     const clickX = e.pageX - waveform.getBoundingClientRect().left;
     const clickPercentage = clickX / waveform.width;
     const newTime = audioRef.current.duration * clickPercentage;
@@ -103,9 +121,7 @@ const AudioButton = ({
     analyserRef.current = audioCtx.createAnalyser();
     analyserRef.current.fftSize = 256;
     source.connect(analyserRef.current);
-
     drawFrequencyBars();
-
     return () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -147,6 +163,7 @@ const AudioButton = ({
     const canvas = waveformRef.current;
     const ctx = canvas.getContext('2d');
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
     try {
       const response = await fetch(audioUrl);
       const arrayBuffer = await response.arrayBuffer();
@@ -284,7 +301,7 @@ const AudioButton = ({
         {isRecording ? (
           <div className='flex items-center justify-between w-full'>
             <div className='flex items-center'>
-              <img src="micRed.svg" className="animate-pulse w-auto h-auto" />
+              <img src="micRed.svg" className="animate-pulse w-auto h-auto"/>
             </div>
             <div className='flex flex-1 mx-4'>
               <canvas ref={canvasRef} className='h-7 w-full'></canvas>
@@ -296,11 +313,11 @@ const AudioButton = ({
         ) : audioUrl ? (
           <div className='flex items-center justify-between h-full w-full'>
             <span className='h-auto w-auto mr-[2px] '>{Math.floor(timer / 60)}:{("0" + (timer % 60)).slice(-2)}</span>
-            <div className='flex justify-center w-10 ml-1 mr-2 control-button' onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
+            <div className='flex justify-center w-10 ml-1 mr-2 control-button' onClick={(e) => {e.stopPropagation(); togglePlayPause();}}>
               <audio ref={audioRef} src={audioUrl} onEnded={() => setIsPlaying(false)}></audio>
               {isPlaying ?
-                (<PauseIcon fontSize="large" />) :
-                (<PlayArrowIcon fontSize="large" />)
+                (<PauseIcon fontSize="large"/>) :
+                (<PlayArrowIcon fontSize="large"/>)
               }
             </div>
             <div className="relative h-[50px] w-full ml-2 mr-3" onClick={(e) => { e.stopPropagation(); handleWaveformClick(e);}}>
@@ -314,13 +331,14 @@ const AudioButton = ({
         ) : (
           <div className='flex items-center justify-between w-full'>
             <div className='flex items-center'>
-              <KeyboardVoiceIcon fontSize='medium' />
+              <KeyboardVoiceIcon fontSize='medium'/>
               <span className='whitespace-nowrap pl-[14px] al:font-semibold sl:font-semibold font-bold text-[20px] xs:text-[18px]'>Explain your idea</span>
             </div>
             <span className='pl-3 text-sm font-normal'>2 min.</span>
           </div>
         )}
       </button>
+      {error && <div className='text-red-500 text-sm mt-2'>{error}</div>}
     </div>
   );
 };

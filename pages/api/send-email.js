@@ -1,4 +1,12 @@
 import nodemailer from 'nodemailer';
+import fs from 'fs';
+import path from 'path';
+
+// Function to convert image to base64
+function imageToBase64(filePath) {
+  const img = fs.readFileSync(filePath);
+  return Buffer.from(img).toString('base64');
+}
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
@@ -11,10 +19,10 @@ const handler = async (req, res) => {
 
     // Replace with your actual Gmail credentials or use environment variables
     const transporter = nodemailer.createTransport({
-      service: 'Gmail', // Ensure correct casing: 'Gmail', not 'Gmail' or 'gmail'
+      service: 'Gmail',
       auth: {
-        user: 'sanjam.khera@gmail.com',
-        pass: 'npvn yfjk jupe jcde'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
@@ -41,31 +49,30 @@ const handler = async (req, res) => {
     }
 
     // Base URL for the images
-    const protocol = req.headers['x-forwarded-proto'] || 'http';
-    const host = req.headers.host;
-    const baseUrl = `${protocol}://${host}/`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000/';
+
+    // Convert images to base64
+    const logoBase64 = imageToBase64(path.join(process.cwd(), 'public', 'logo.svg'));
+    const hr24Base64 = imageToBase64(path.join(process.cwd(), 'public', 'email24hr.svg'));
+    const satisfiedBase64 = imageToBase64(path.join(process.cwd(), 'public', 'email216.svg'));
 
     // HTML content for the email
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-          <img src="${baseUrl}logo.svg" alt="Logo" style="width: 150px; margin-bottom: 20px;">
+          <img src="data:image/svg+xml;base64,${logoBase64}" alt="Logo" style="width: 150px; margin-bottom: 20px;">
           <h2>Thanks for your submission!</h2>
           <p>Your files have been received, and there’s a copy of everything attached to this email as well.</p>
           <p>We are actively reviewing your project and will circle back with an estimate + contract shortly.</p>
           <p>Best,<br>Sophie S.<br>Client Success Advisor<br>
           <a href="mailto:sophie@prototypefast.com" style="color: #0073e6;">sophie@prototypefast.com</a></p>
           <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-            <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex; justify-content: space-around;">
               <div style="text-align: center;">
-                <img src="${baseUrl}24hr.svg" alt="24hr turnaround" style="width: 50px;">
-                <p style="margin: 5px 0;">24hr turnaround</p>
-                <p style="margin: 5px 0; font-size: 12px;">100% confidential</p>
+                <img src="data:image/svg+xml;base64,${hr24Base64}" alt="24hr turnaround">
               </div>
               <div style="text-align: center;">
-                <img src="${baseUrl}achieve.svg" alt="216+ Satisfied Clients" style="width: 50px;">
-                <p style="margin: 5px 0;">216+ Satisfied</p>
-                <p style="margin: 5px 0; font-size: 12px;">C-Suite Clients</p>
+                <img src="data:image/svg+xml;base64,${satisfiedBase64}" alt="216+ Satisfied Clients">
               </div>
             </div>
             <div style="margin-top: 20px; text-align: center;">
@@ -80,8 +87,8 @@ const handler = async (req, res) => {
     `;
 
     const mailOptions = {
-      from: 'sanjam.khera@gmail.com',
-      to: [email, 'sanjam.khera@gmail.com'],
+      from: process.env.EMAIL_USER,
+      to: [email, process.env.EMAIL_USER],
       subject: 'Your Estimate Request',
       html: htmlContent,
       attachments: [

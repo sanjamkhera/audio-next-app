@@ -70,17 +70,17 @@ const Home = () => {
   };
 
   return (
-    <div className='min-w-[375px] xm:max-w-[490px] scroll-smooth xm:mx-auto'>
+    <div className='min-w-[375px] xm:max-w-[490px] scroll-smooth '>
       {isLoading && <div className="loading-line"></div>}
       {!isEstimateRequested ? (
         <>
           <div className="flex justify-center scroll-smooth font-sans">
             <Hero {...commonProps} className="flex-1" />
           </div>
-          <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center overflow-hidden bg-white'>
+          <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
             <BeforeAfterSlider className="flex-1" />
           </div>
-          <div className='sl:hidden al:hidden mx:hidden flex flex-col h-screen items-center overflow-hidden bg-black z-40'>
+          <div className='sl:hidden al:hidden mx:hidden flex flex-col h-screen items-center overflow-hidden scroll-smooth bg-black z-40'>
             <FeatureList className="flex-1" />
             <FeatureButtons className="flex-1" />
           </div>

@@ -137,22 +137,21 @@ const Hero = ({
               <div className='flex flex-row overflow-hidden'>
                 {/* animate-smoothScroll */}
                 <div className=' flex gap-6 animate-smoothScroll'>
-                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
-                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
-
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
+                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
+                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
-                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
+                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
+                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
-                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
+                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
+                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
                   {/* Duplicate the images for a seamless loop */}
-                  <img src="payPal.png" alt="PayPal" className="w-[80px] " />
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]" />
-                  <img src="achieve.png" alt="achieve" className="w-[88px]" />
+                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
+                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
+                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
                 </div>
               </div>
 
@@ -258,7 +257,6 @@ const Hero = ({
               )}
             </div>
           </div>
-
           <div className="flex order-last ">
             <EmailButton email={email} handleEmailChange={handleEmailChange} handleSendEmail={handleSendEmail} setIsLoading={setIsLoading} />
           </div>
