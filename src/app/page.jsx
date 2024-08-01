@@ -10,23 +10,28 @@ import FeatureListLarge from '@/components/featureListLarge';
 import WaitingPageLarge from '../components/waitingPageLarge';
 
 const Home = () => {
+  // State variables
   const [isEstimateRequested, setIsEstimateRequested] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Audio-related state variables
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
   const [audioBase64, setAudioBase64] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [timer, setTimer] = useState(0);
 
+  // File and email state variables
   const [files, setFiles] = useState([]);
   const [email, setEmail] = useState('');
 
+  // Function to handle estimate request
   const handleGetEstimate = () => {
     setIsEstimateRequested(true);
   };
 
+  // Function to reset all states
   const handleResetStates = () => {
     setIsEstimateRequested(false);
     setIsRecording(false);
@@ -38,6 +43,7 @@ const Home = () => {
     setEmail('');
   };
 
+  // Effect to handle window resize
   useEffect(() => {
     setWindowWidth(window.innerWidth);
 
@@ -50,6 +56,7 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Common props for child components
   const commonProps = {
     isRecording,
     setIsRecording,
@@ -71,29 +78,42 @@ const Home = () => {
 
   return (
     <div className='min-w-[375px] xm:max-w-[490px] scroll-smooth '>
+      {/* Loading indicator */}
       {isLoading && <div className="loading-line"></div>}
+      
+      {/* Conditional rendering based on estimate request status */}
       {!isEstimateRequested ? (
         <>
+          {/* Hero section */}
           <div className="flex justify-center scroll-smooth font-sans">
             <Hero {...commonProps} className="flex-1" />
           </div>
+          
+          {/* Before/After slider (mobile view) */}
           <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
             <BeforeAfterSlider className="flex-1" />
           </div>
+          
+          {/* Feature list and buttons (mobile view) */}
           <div className='sl:hidden al:hidden mx:hidden flex flex-col h-screen items-center overflow-hidden scroll-smooth bg-black z-40'>
             <FeatureList className="flex-1" />
             <FeatureButtons className="flex-1" />
           </div>
+          
+          {/* Feature list (large screen view) */}
           <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat">
             <FeatureListLarge />
           </div>
         </>
       ) : (
         <div>
+          {/* Waiting page (mobile view) */}
           <div className='sl:hidden al:hidden mx:hidden w-full flex flex-col items-center min-w-[315px]'>
             <WaitingPage className="flex-1" />
             <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
           </div>
+          
+          {/* Waiting page (large screen view) */}
           <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
             <WaitingPageLarge handleResetStates={handleResetStates} />
           </div>

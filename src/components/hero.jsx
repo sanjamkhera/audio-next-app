@@ -6,6 +6,7 @@ import AttachmentButton from './attachmentButton';
 import EmailButton from './emailButton';
 import AttachmentButtonLarge from './attachmentButtonLarge';
 
+// Main Hero component
 const Hero = ({
   isRecording,
   setIsRecording,
@@ -25,26 +26,30 @@ const Hero = ({
   setIsLoading
 }) => {
 
+  // State for editing mode and screen size
   const [isEditing, setIsEditing] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
-
+  // Animation for sliding down edit panel
   const slideDown = useSpring({
     from: { transform: 'translateY(100%)' },
     to: { transform: 'translateY(70%)' },
     config: { duration: 500 }
   });
 
+  // Function to delete a file from the list
   const handleDeleteFile = (index) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
     setFiles(updatedFiles);
   };
 
+  // Function to handle email input change
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
+  // Function to send email with audio and files
   const handleSendEmail = async () => {
     const data = {
       email,
@@ -75,6 +80,7 @@ const Hero = ({
     }
   };
 
+  // Effect to handle screen size changes
   useEffect(() => {
     // This code runs after the component is mounted, ensuring `window` is available
     const handleResize = () => setIsLargeScreen(window.innerWidth > 819);
@@ -98,9 +104,11 @@ const Hero = ({
       </div>
       {/* Main Hero Section */}
       <div className='w-full sl:h-[80%] al:h-[80%] mx:h-[80%] sl:w-[95%] al:w-[95%] mx:w-[95%] flex flex-row xs:flex-col xm:flex-col items-start justify-between mt-2 sl:mt-12 al:mt-12 mx:mt-12 sl:gap-5 al:gap-5 mx:gap-12'>
+        {/* Conditional rendering based on screen size */}
         {!isLargeScreen ? (
+          // Mobile layout
           <div className='w-full flex flex-col mt-3 px-4'>
-
+            {/* Hero text for mobile */}
             <div style={{ letterSpacing: '-1.3px' }} className="font-semibold text-pretty text-customGray text-[46px] xs:text-[42px] text-start pb-3 leading-[0.95] xs:leading-[0.93]">
               <span className="whitespace-nowrap">For the busy</span>
               <div className="whitespace-nowrap">
@@ -127,8 +135,8 @@ const Hero = ({
               <span className="text-justPretty whitespace-nowrap"> to solve.</span>
             </div>
 
+            {/* Logos and stats for mobile */}
             <div className="w-[95%] flex flex-row items-center mt-2 py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e]">
-
               <div className="italic min-w-2/5 flex flex-col items-center justify-center text-[12px] font-small pr-2 border-r border-[#E5E5E5] bg-white">
                 <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied</span></div>
                 <div className=' whitespace-nowrap text-[#AAACB3]'>C-Suite Clients</div>
@@ -157,6 +165,7 @@ const Hero = ({
 
             </div>
 
+            {/* CTA for mobile */}
             <div className="flex whitespace-nowrap text-[17px] leading-[1.2] font-medium text-prettyGray xs:mt-[12px] mt-4 xs:mb-[10px] mb-[22px]">
               High-fidelity designs, in <span
                 className="text-[#14151A] underline pl-[6px] cursor-pointer"
@@ -171,7 +180,9 @@ const Hero = ({
 
           </div>
         ) : (
+          // Desktop layout
           <div className='flex flex-col items-start justify-start w-1/2'>
+            {/* Hero text for desktop */}
             <div style={{ letterSpacing: '-1.3px' }} className="flex flex-col al:font-semibold sl:font-semibold h-auto font-bold text-pretty text-customGray mx:text-[56px] sl:text-[50px] al:text-[40px] text-[60px] text-start pb-4 leading-[0.95] pt-6">
               <span className="whitespace-nowrap">For the busy</span>
               <div className="whitespace-nowrap">
@@ -193,6 +204,7 @@ const Hero = ({
               </div>
             </div>
 
+            {/* CTA for desktop */}
             <div style={{ letterSpacing: '-1.1px' }} className="flex whitespace-nowrap text-[22px] leading-[1.2] font-medium text-black text-opacity-35 mt-3 pt-6 mb-[22px] border-t border-[#E5E5E5]">
               High-fidelity designs, in <span
                 className="text-[#14151A] underline pl-1 cursor-pointer"
@@ -207,7 +219,7 @@ const Hero = ({
           </div>
         )}
 
-
+        {/* Buttons and Inputs */}
         <div className='w-[90%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 xs:mx-auto xm:mx-auto gap-3 my-2'>
           <div className={`order-first ${'sl:order-2 al:order-2 mx:order-2'}`}>
             <AudioButton
@@ -263,6 +275,8 @@ const Hero = ({
         </div>
 
       </div>
+
+      {/* Client logos for large screens */}
       <div className='hidden sl:flex al:flex mx:flex w-[90%] flex-col justify-start mb-12'>
         <div className="italic flex items-center text-[12px] font-small pr-2 border-b border-[#E5E5E5] bg-white pb-2">
           <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied C-Suite Clients</span></div>

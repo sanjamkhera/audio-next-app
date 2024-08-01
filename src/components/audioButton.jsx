@@ -6,17 +6,20 @@ import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 
+// AudioButton component for recording, playing, and visualizing audio
 const AudioButton = ({
   isRecording,
   setIsRecording,
   audioUrl,
   setAudioUrl,
-  audioBase64, 
-  setAudioBase64, 
+  audioBase64,
+  setAudioBase64,
   timer,
   setTimer,
   isPlaying,
   setIsPlaying }) => {
+
+  // Refs for audio elements and visualization
   const audioRef = useRef(null);
   const analyserRef = useRef(null);
   const canvasRef = useRef(null);
@@ -24,9 +27,11 @@ const AudioButton = ({
   const dotCanvasRef = useRef(null);
   const mediaRecorderRef = useRef(null);
 
+  // State for playback time and error handling
   const [playbackTime, setPlaybackTime] = useState(0);
   const [error, setError] = useState(null);
 
+  // Initialize audio recorder with noise suppression and echo cancellation
   const recorderControls = useAudioRecorder({
     audioTrackConstraints: {
       noiseSuppression: true,
@@ -41,45 +46,28 @@ const AudioButton = ({
 
   const { startRecording, stopRecording, recordingBlob, isRecording: recorderIsRecording, mediaRecorder } = recorderControls;
 
-  // useEffect(() => {
-  //   if (recordingBlob && recordingBlob.size > 0) {
-  //     const audioUrl = URL.createObjectURL(recordingBlob);
-  //     setAudioUrl(audioUrl);
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       const base64data = reader.result.split(',')[1]; 
-  //       setAudioBase64(base64data);
-  //     };
-  //     reader.readAsDataURL(recordingBlob);
-  //   } else {
-  //     setAudioUrl(null);
-  //   }
-  // }, [recordingBlob]);
-
+  // Handle recording blob and convert to base64
   useEffect(() => {
-    if (recordingBlob && recordingBlob.size > 0 && timer >= 15) {
+    if (recordingBlob && timer < 10) {
+      setError('Recording must be at least 10 seconds long.');
+      setAudioUrl(null);
+    } else if (recordingBlob && recordingBlob.size >= 10) {
+      setError(null);
       const audioUrl = URL.createObjectURL(recordingBlob);
       setAudioUrl(audioUrl);
-  
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64data = reader.result.split(',')[1];
         setAudioBase64(base64data);
       };
       reader.readAsDataURL(recordingBlob);
-  
-      setError(null);
-    } else if (recordingBlob && recordingBlob.size > 0) {
-      // This case handles when the recording is less than 15 seconds
-      setError("Recording must be at least 15 seconds long.");
-      setAudioUrl(null);
-      setAudioBase64(null);
     } else {
       setAudioUrl(null);
       setError(null);
     }
-  }, [recordingBlob, timer]);
+  }, [recordingBlob]);
 
+  // Update playback time
   useEffect(() => {
     if (audioRef.current) {
       const audio = audioRef.current;
@@ -94,6 +82,7 @@ const AudioButton = ({
     }
   }, [audioUrl]);
 
+  // Handle waveform click to change playback position
   const handleWaveformClick = (e) => {
     const waveform = waveformRef.current;
     if (!waveform) return;
@@ -109,10 +98,12 @@ const AudioButton = ({
     }
   };
 
+  // Set up media recorder
   useEffect(() => {
     mediaRecorderRef.current = mediaRecorder;
   }, [mediaRecorder]);
 
+  // Set up audio analyser for visualization
   useEffect(() => {
     if (!isRecording || !mediaRecorderRef.current) return;
     const stream = mediaRecorderRef.current.stream;
@@ -132,6 +123,7 @@ const AudioButton = ({
     };
   }, [isRecording, mediaRecorderRef.current]);
 
+  // Draw frequency bars for audio visualization
   const drawFrequencyBars = () => {
     const canvas = canvasRef.current;
     const canvasCtx = canvas.getContext('2d');
@@ -159,6 +151,7 @@ const AudioButton = ({
     draw();
   };
 
+  // Draw waveform for recorded audio
   const drawWaveform = async () => {
     const canvas = waveformRef.current;
     const ctx = canvas.getContext('2d');
@@ -168,7 +161,7 @@ const AudioButton = ({
       const response = await fetch(audioUrl);
       const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-      
+
       const bufferLength = audioBuffer.length;
       const data = audioBuffer.getChannelData(0);
       const step = Math.ceil(data.length / canvas.width);
@@ -211,6 +204,7 @@ const AudioButton = ({
     }
   };
 
+  // Draw playback position dot on waveform
   const drawDot = () => {
     if (!audioRef.current) return;
     const canvas = dotCanvasRef.current;
@@ -230,6 +224,7 @@ const AudioButton = ({
     requestAnimationFrame(drawDot);
   };
 
+  // Draw waveform and dot when audio URL changes
   useEffect(() => {
     if (audioUrl) {
       drawWaveform().then(() => {
@@ -238,6 +233,7 @@ const AudioButton = ({
     }
   }, [audioUrl, playbackTime]);
 
+  // Handle recording timer
   useEffect(() => {
     let interval = null;
     if (recorderIsRecording) {
@@ -251,6 +247,7 @@ const AudioButton = ({
     return () => clearInterval(interval);
   }, [recorderIsRecording]);
 
+  // Start and stop recording handlers
   const startRecordingHandler = () => {
     setIsRecording(true);
     startRecording();
@@ -261,6 +258,7 @@ const AudioButton = ({
     stopRecording();
   };
 
+  // Toggle recording on button click
   const handleToggleRecording = (event) => {
     if (event.target.closest('.control-button')) {
       return;
@@ -272,6 +270,7 @@ const AudioButton = ({
     }
   };
 
+  // Toggle play/pause for recorded audio
   const togglePlayPause = async () => {
     if (audioRef.current) {
       try {
@@ -287,21 +286,25 @@ const AudioButton = ({
     }
   };
 
+  // Delete recorded audio
   const handleDeleteRecording = () => {
     setAudioUrl(null);
     setTimer(0);
   };
 
+  // Render the AudioButton component
   return (
     <div>
       <button
         className={`w-full min-w-[315px] h-[60px] rounded-lg text-white px-4 flex items-center justify-between bg-black`}
-        onClick={audioUrl ? null : handleToggleRecording} 
+        onClick={audioUrl ? null : handleToggleRecording}
       >
+        {/* Render different UI based on recording state */}
         {isRecording ? (
+          // Recording in progress UI
           <div className='flex items-center justify-between w-full'>
             <div className='flex items-center'>
-              <img src="micRed.svg" className="animate-pulse w-auto h-auto"/>
+              <img src="micRed.svg" className="animate-pulse w-auto h-auto" />
             </div>
             <div className='flex flex-1 mx-4'>
               <canvas ref={canvasRef} className='h-7 w-full'></canvas>
@@ -311,16 +314,17 @@ const AudioButton = ({
             </div>
           </div>
         ) : audioUrl ? (
+          // Playback UI for recorded audio
           <div className='flex items-center justify-between h-full w-full'>
             <span className='h-auto w-auto mr-[2px] '>{Math.floor(timer / 60)}:{("0" + (timer % 60)).slice(-2)}</span>
-            <div className='flex justify-center w-10 ml-1 mr-2 control-button' onClick={(e) => {e.stopPropagation(); togglePlayPause();}}>
+            <div className='flex justify-center w-10 ml-1 mr-2 control-button' onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
               <audio ref={audioRef} src={audioUrl} onEnded={() => setIsPlaying(false)}></audio>
               {isPlaying ?
-                (<PauseIcon fontSize="large"/>) :
-                (<PlayArrowIcon fontSize="large"/>)
+                (<PauseIcon fontSize="large" />) :
+                (<PlayArrowIcon fontSize="large" />)
               }
             </div>
-            <div className="relative h-[50px] w-full ml-2 mr-3" onClick={(e) => { e.stopPropagation(); handleWaveformClick(e);}}>
+            <div className="relative h-[50px] w-full ml-2 mr-3" onClick={(e) => { e.stopPropagation(); handleWaveformClick(e); }}>
               <canvas ref={waveformRef} className="absolute top-0 left-0 w-full h-full"></canvas>
               <canvas ref={dotCanvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
             </div>
@@ -329,9 +333,10 @@ const AudioButton = ({
             </div>
           </div>
         ) : (
+          // Initial state UI
           <div className='flex items-center justify-between w-full'>
             <div className='flex items-center'>
-              <KeyboardVoiceIcon fontSize='medium'/>
+              <KeyboardVoiceIcon fontSize='medium' />
               <span className='whitespace-nowrap pl-[14px] al:font-semibold sl:font-semibold font-bold text-[20px] xs:text-[18px]'>Explain your idea</span>
             </div>
             <span className='pl-3 text-sm font-normal'>2 min.</span>
