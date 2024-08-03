@@ -26,6 +26,8 @@ const Home = () => {
   const [files, setFiles] = useState([]);
   const [email, setEmail] = useState('');
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   // Function to handle estimate request
   const handleGetEstimate = () => {
     setIsEstimateRequested(true);
@@ -54,6 +56,12 @@ const Home = () => {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/backGroundLg.svg';
+    img.onload = () => setIsImageLoaded(true);
   }, []);
 
   // Common props for child components
@@ -101,7 +109,12 @@ const Home = () => {
           </div>
           
           {/* Feature list (large screen view) */}
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat">
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black" style={{
+          backgroundImage: `url('/backGroundLg.svg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}>
             <FeatureListLarge />
           </div>
         </>
