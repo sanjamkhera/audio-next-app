@@ -42,10 +42,7 @@ const FeatureButtons = () => {
 
   return (
     // Main container with background image
-    <div className="w-full h-full items-center justify-start bg-black" style={{
-      backgroundImage: `url('/background.svg')`,
-      backgroundSize: 'cover',
-    }}>
+    <div className="w-full h-full items-center justify-start bg-black" >
       {/* Inner container for buttons */}
       <div className="w-full h-full flex flex-col items-center justify-center gap-4 pb-8">
         {/* LinkedIn share button */}
