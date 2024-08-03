@@ -8,6 +8,7 @@ import WaitingPageInput from '@/components/waitingPageInput';
 import BeforeAfterSlider from '@/components/beforeAfterSlider';
 import FeatureListLarge from '@/components/featureListLarge';
 import WaitingPageLarge from '../components/waitingPageLarge';
+import Image from 'next/image';
 
 const Home = () => {
   // State variables
@@ -25,8 +26,6 @@ const Home = () => {
   // File and email state variables
   const [files, setFiles] = useState([]);
   const [email, setEmail] = useState('');
-
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   // Function to handle estimate request
   const handleGetEstimate = () => {
@@ -58,12 +57,6 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    const img = new Image();
-    img.src = '/backGroundLg.svg';
-    img.onload = () => setIsImageLoaded(true);
-  }, []);
-
   // Common props for child components
   const commonProps = {
     isRecording,
@@ -88,7 +81,7 @@ const Home = () => {
     <div className='min-w-[375px] xm:max-w-[490px] scroll-smooth '>
       {/* Loading indicator */}
       {isLoading && <div className="loading-line"></div>}
-      
+
       {/* Conditional rendering based on estimate request status */}
       {!isEstimateRequested ? (
         <>
@@ -96,44 +89,47 @@ const Home = () => {
           <div className="flex justify-center scroll-smooth font-sans">
             <Hero {...commonProps} className="flex-1" />
           </div>
-          
+
           {/* Before/After slider (mobile view) */}
           <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
             <BeforeAfterSlider className="flex-1" />
           </div>
-          
+
           {/* Feature list and buttons (mobile view) */}
           <div className='sl:hidden al:hidden mx:hidden flex flex-col h-screen items-center overflow-hidden scroll-smooth bg-black z-40'>
             <FeatureList className="flex-1" />
             <FeatureButtons className="flex-1" />
           </div>
-          
+
           {/* Feature list (large screen view) */}
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black" style={{
-          backgroundImage: `url('/backGroundLg.svg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}>
-            <FeatureListLarge />
+          {/* <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat"> */}
+            <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black relative">
+              <Image
+                src="/backGroundLg.jpg"
+                layout="fill"
+                objectFit="cover"
+                priority
+                alt="Background"
+              />
+              <FeatureListLarge />
+            </div>
+          </>
+          ) : (
+          <div>
+            {/* Waiting page (mobile view) */}
+            <div className='sl:hidden al:hidden mx:hidden w-full flex flex-col items-center min-w-[315px]'>
+              <WaitingPage className="flex-1" />
+              <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
+            </div>
+
+            {/* Waiting page (large screen view) */}
+            <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
+              <WaitingPageLarge handleResetStates={handleResetStates} />
+            </div>
           </div>
-        </>
-      ) : (
-        <div>
-          {/* Waiting page (mobile view) */}
-          <div className='sl:hidden al:hidden mx:hidden w-full flex flex-col items-center min-w-[315px]'>
-            <WaitingPage className="flex-1" />
-            <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
-          </div>
-          
-          {/* Waiting page (large screen view) */}
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
-            <WaitingPageLarge handleResetStates={handleResetStates} />
-          </div>
-        </div>
       )}
-    </div>
-  );
+        </div>
+      );
 };
 
-export default Home;
+      export default Home;
