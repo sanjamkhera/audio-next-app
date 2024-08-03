@@ -102,34 +102,26 @@ const Home = () => {
           </div>
 
           {/* Feature list (large screen view) */}
-          {/* <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat"> */}
-            <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black relative">
-              <Image
-                src="/backGroundLg.jpg"
-                layout="fill"
-                objectFit="cover"
-                priority
-                alt="Background"
-              />
-              <FeatureListLarge />
-            </div>
-          </>
-          ) : (
-          <div>
-            {/* Waiting page (mobile view) */}
-            <div className='sl:hidden al:hidden mx:hidden w-full flex flex-col items-center min-w-[315px]'>
-              <WaitingPage className="flex-1" />
-              <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
-            </div>
-
-            {/* Waiting page (large screen view) */}
-            <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
-              <WaitingPageLarge handleResetStates={handleResetStates} />
-            </div>
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat">
+            <FeatureListLarge />
           </div>
-      )}
+        </>
+      ) : (
+        <div>
+          {/* Waiting page (mobile view) */}
+          <div className='sl:hidden al:hidden mx:hidden w-full flex flex-col items-center min-w-[315px]'>
+            <WaitingPage className="flex-1" />
+            <WaitingPageInput className="flex-1" onStartNewProject={handleResetStates} />
+          </div>
+
+          {/* Waiting page (large screen view) */}
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans">
+            <WaitingPageLarge handleResetStates={handleResetStates} />
+          </div>
         </div>
-      );
+      )}
+    </div>
+  );
 };
 
-      export default Home;
+export default Home;
