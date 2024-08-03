@@ -1,8 +1,17 @@
 "use client"
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 // FeatureButtons component definition
 const FeatureButtons = () => {
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/background.svg';
+    img.onload = () => setIsImageLoaded(true);
+  }, []);
 
   // Function to handle sharing on LinkedIn
   const handleShareOnLinkedIn = () => {
@@ -33,7 +42,10 @@ const FeatureButtons = () => {
 
   return (
     // Main container with background image
-    <div className="w-full h-full items-center justify-start bg-cover bg-[url('/background.svg')] bg-black">
+    <div className="w-full h-full items-center justify-start bg-black" style={{
+      backgroundImage: `url('/background.svg')`,
+      backgroundSize: 'cover',
+    }}>
       {/* Inner container for buttons */}
       <div className="w-full h-full flex flex-col items-center justify-center gap-4 pb-8">
         {/* LinkedIn share button */}
