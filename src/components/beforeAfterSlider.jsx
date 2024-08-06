@@ -4,8 +4,8 @@ import Image from "next/image";
 import styles from "./beforeAfterSlider.module.css";
 
 // Component for displaying a loading spinner overlay
-const LoadingOverlay = () => (
-  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl z-10">
+const LoadingOverlay = ({ widthClass, heightClass }) => (
+  <div className={`absolute bg-black bg-opacity-50 flex items-center justify-center z-10 ${widthClass} ${heightClass}`}>
     <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
   </div>
 );
@@ -84,7 +84,7 @@ const BeforeAfterSlider = () => {
       const currentPercent = sliderPosition;
       const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
 
-      const sensitivity = 0.1; // Adjust this value to change sensitivity (lower = less sensitive)
+      const sensitivity = 0.09; // Adjust this value to change sensitivity (lower = less sensitive)
       const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
 
       setSliderPosition(Math.max(0, Math.min(100, newPercent)));
@@ -108,20 +108,25 @@ const BeforeAfterSlider = () => {
 
 
   return (
-    <div className="w-full min-w-[375px] h-full flex flex-col items-center justify-start bg-white mt-1">
+    <div className="w-full min-w-[375px] flex flex-col items-center justify-between bg-white mt-1">
 
       {/* Header with logo images */}
-      <div className="w-[85%] mt-1 flex justify-between items-center bg-white">
+      <div className="w-[80%] mt-1 h-10 flex justify-between items-center bg-white">
         <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
         <img src="24hr.svg" alt="24 hour" className="mr-2" />
       </div>
 
-      <div className="w-[95%] h-[90%] flex justify-center items-center bg-[url('/ipad.svg')] bg-contain bg-no-repeat bg-center">
+      <div className="w-[99%] h-[85vh] flex justify-center items-center bg-[url('/ipad.svg')] bg-contain bg-no-repeat bg-center">
         {/* Main content area with iPad background */}
-        <div className="flex w-[95%] h-[95%] justify-center items-center" ref={sliderRef}>
+        <div className="flex w-[98%] h-[98%] justify-center items-center" ref={sliderRef}>
           {/* Image container */}
-          <div className="w-[85%] h-[90%] flex justify-center items-center min-w-[290px] relative">
-            {(!hasLoadedOnce || isLoading) && <LoadingOverlay />}
+          <div className="w-full h-[95%] flex justify-center items-center min-w-[290px] relative">
+            {(!hasLoadedOnce || isLoading) && (
+              <LoadingOverlay
+                widthClass="w-[82%] left-1/2 -translate-x-1/2"
+                heightClass="h-full"
+              />
+            )}
             <div className="w-full h-full relative overflow-hidden select-none" style={{ cursor: isDragging ? "ew-resize" : "default" }}>
               {/* 'After' image */}
               {currentAfter && <Image src={currentAfter} alt="After" fill priority />}
@@ -135,14 +140,14 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider controls */}
-      <div className="flex flex-row items-start justify-center w-full">
+      <div className="flex flex-row items-center justify-between w-[80%] h-[10vh]">
         {/* Reload button */}
-        <div className="flex w-auto mr-2">
+        <div className="flex mt-1">
           <img src="reload.svg" alt="Reload" className="cursor-pointer" onClick={handleReload} />
         </div>
         {/* Slider bar */}
         <div
-          className={`h-[60%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mx-6 -z-1 ${styles["button-pseudo-element"]}`}
+          className={`h-[25%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mx-6 -z-1 ${styles["button-pseudo-element"]}`}
           ref={buttonRef}
           style={{ "--slider-position": `${sliderPosition}%` }}
         >
