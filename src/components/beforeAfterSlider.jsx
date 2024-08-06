@@ -159,7 +159,7 @@ const BeforeAfterSlider = () => {
           <button
             className="absolute cursor-pointer -mt-3 -mb-3"
             style={{
-              left: `max(-49px, calc(${sliderPosition}% - 74.5px))`,
+              left: `max(-49px, calc(${sliderPosition}% - 58px))`,
             }}
           >
             <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />

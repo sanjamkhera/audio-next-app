@@ -11,5 +11,5 @@
   width: 100%;
   border-radius: inherit;
   background: #873DE6;
-  clip-path: inset(0 0 0 calc(var(--slider-position) - 24px));
+  clip-path: inset(0 0 0 calc(var(--slider-position) - 14px));
 }
