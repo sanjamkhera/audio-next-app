@@ -83,7 +83,7 @@ const BeforeAfterSlider = () => {
       const currentPercent = sliderPosition;
       const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
 
-      const sensitivity = 0.09; // Adjust this value to change sensitivity (lower = less sensitive)
+      const sensitivity = 0.08; // Adjust this value to change sensitivity (lower = less sensitive)
       const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
 
       // Ensure the slider position stays within 0-100 range
@@ -123,7 +123,7 @@ const BeforeAfterSlider = () => {
           <div className="w-full h-[95%] flex justify-center items-center min-w-[290px] relative">
             {(!hasLoadedOnce || isLoading) && (
               <LoadingOverlay
-                widthClass="w-[82%] left-1/2 -translate-x-1/2"
+                widthClass="w-[80%] left-1/2 -translate-x-1/2"
                 heightClass="h-full"
               />
             )}
