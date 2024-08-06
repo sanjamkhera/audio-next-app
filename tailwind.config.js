@@ -26,7 +26,7 @@ module.exports = {
         },
         smoothScroll: {
           '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' }, 
+          '100%': { transform: 'translateX(-330%)' }, 
         },
         blink: {
           '0%, 100%': { opacity: '1' },
@@ -34,7 +34,7 @@ module.exports = {
         },
       },
       animation: {
-        smoothScroll: 'smoothScroll 20s linear infinite',
+        smoothScroll: 'smoothScroll 38s linear infinite',
         blink: 'blink 1s steps(1, end) infinite',
       },
       colors: {

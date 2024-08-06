@@ -136,30 +136,33 @@ const Hero = ({
             </div>
 
             {/* Logos and stats for mobile */}
-            <div className="w-[95%] flex flex-row items-center mt-2 py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e]">
-              <div className="italic min-w-2/5 flex flex-col items-center justify-center text-[12px] font-small pr-2 border-r border-[#E5E5E5] bg-white">
+            <div className="w-full flex flex-row items-center mt-2 py-3 xs:py-2 border-t border-b border-[#E5E5E5] leading-[1.2] text-[#9e9e9e]">
+              <div className="italic min-w-2/5 flex flex-col items-center justify-center text-[12px] font-small pr-3 border-r border-[#E5E5E5] bg-white">
                 <div className=' whitespace-nowrap'><span className="text-justPretty font-medium">216+</span> <span className='text-[#AAACB3]'>Satisfied</span></div>
                 <div className=' whitespace-nowrap text-[#AAACB3]'>C-Suite Clients</div>
               </div>
 
-              <div className='flex flex-row overflow-hidden'>
-                {/* animate-smoothScroll */}
-                <div className=' flex gap-6 animate-smoothScroll'>
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
-                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
-                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
-                  {/* Duplicate the images for a seamless loop */}
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
-                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
-                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
-                  {/* Duplicate the images for a seamless loop */}
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
-                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
-                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
-                  {/* Duplicate the images for a seamless loop */}
-                  <img src="mit.png" alt="mitLogo" className="w-[40px]"/>
-                  <img src="payPal.png" alt="PayPal" className="w-[80px]"/>
-                  <img src="achieve.png" alt="achieve" className="w-[88px]"/>
+              <div className="relative overflow-hidden">
+                {/* Gradient overlay */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent"></div>
+
+                <div className='flex flex-row overflow-hidden'>
+                  <div className='flex gap-6 items-center animate-smoothScroll'>
+                    <img src="payPal.png" alt="paypal" className="w-[84px]" />
+                    <img src="mit.png" alt="mitLogo" className="w-[44px]" />
+                    <img src="achieve.png" alt="achieve" className="w-[88px]" />
+                    <img src="ibm.png" alt="ibm" className="w-[55px]" />
+                    <img src="kc.png" alt="kinCarta" className="w-[90px] -mx-2" />
+                    <img src="nestle.png" alt="nestle" className="w-[75px]" />
+                    <img src="pcp.png" alt="principal" className="w-[75px]" />
+                    <img src="payPal.png" alt="paypal" className="w-[84px]" />
+                    <img src="mit.png" alt="mitLogo" className="w-[44px]" />
+                    <img src="achieve.png" alt="achieve" className="w-[88px]" />
+                    <img src="ibm.png" alt="ibm" className="w-[55px]" />
+                    <img src="kc.png" alt="kinCarta" className="w-[90px] -mx-2" />
+                    <img src="nestle.png" alt="nestle" className="w-[75px]" />
+                    <img src="pcp.png" alt="principal" className="w-[75px]" />
+                  </div>
                 </div>
               </div>
 
@@ -220,7 +223,7 @@ const Hero = ({
         )}
 
         {/* Buttons and Inputs */}
-        <div className='w-[90%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 xs:mx-auto xm:mx-auto gap-3 my-2'>
+        <div className='w-[95%] flex flex-col justify-center sl:w-[40%] al:w-[40%] mx:w-[40%] sl:pl-4 al:pl-1/2 sl:gap-6 al:gap-6 mx:gap-6 xs:mx-auto xm:mx-auto gap-3 my-2'>
           <div className={`order-first ${'sl:order-2 al:order-2 mx:order-2'}`}>
             <AudioButton
               isRecording={isRecording}

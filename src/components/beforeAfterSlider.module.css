@@ -12,5 +12,4 @@
   border-radius: inherit;
   background: #873DE6;
   clip-path: inset(0 0 0 var(--slider-position));
-  z-index: -1; /* Ensure it's behind the button */
 }

@@ -102,7 +102,7 @@ const Home = () => {
           </div>
 
           {/* Feature list (large screen view) */}
-          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/backGroundLg.svg')] bg-cover bg-center bg-no-repeat">
+          <div className="hidden sl:flex al:flex mx:flex justify-center overflow-auto min-w-[809px] h-screen font-sans bg-black bg-[url('/bg_desktop.png')] bg-cover bg-center bg-no-repeat">
             <FeatureListLarge />
           </div>
         </>

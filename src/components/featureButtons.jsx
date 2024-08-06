@@ -1,7 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 
-
 // FeatureButtons component definition
 const FeatureButtons = () => {
 
@@ -9,7 +8,7 @@ const FeatureButtons = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = '/background.svg';
+    img.src = '/bg_mobile.png';
     img.onload = () => setIsImageLoaded(true);
   }, []);
 
@@ -43,7 +42,7 @@ const FeatureButtons = () => {
   return (
     // Main container with background image
     <div className="w-full h-full items-center justify-start bg-black" style={{
-      backgroundImage: `url('/background.svg')`,
+      backgroundImage: `url('/bg_mobile.png')`,
       backgroundSize: 'cover',
     }}>
       {/* Inner container for buttons */}

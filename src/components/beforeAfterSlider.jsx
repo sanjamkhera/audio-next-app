@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import CachedIcon from "@mui/icons-material/Cached";
 import styles from "./beforeAfterSlider.module.css";
 
 // Component for displaying a loading spinner overlay
@@ -25,14 +24,14 @@ const BeforeAfterSlider = () => {
   const buttonRef = useRef(null);
 
   // Arrays of image file names
-  const beforeImages = ["before1.svg", "before2.svg", "before3.svg", "before4.svg", "before5.svg", "before6.svg"];
-  const afterImages = ["after1.svg", "after2.svg", "after3.svg", "after4.svg", "after5.svg", "after6.svg"];
+  const beforeImages = ["before1.svg", "before2.svg", "before3.svg", "before4.svg", "before5.svg", "before6.svg", "before7.svg", "before8.svg", "before9.svg", "before10.svg"];
+  const afterImages = ["after1.svg", "after2.svg", "after3.svg", "after4.svg", "after5.svg", "after6.svg", "after7.svg", "after8.svg", "after9.svg", "after10.svg"];
 
   // Function to get a random image index, different from the last one
   const getRandomImage = (lastIndex) => {
     let newIndex;
     do {
-      newIndex = Math.floor(Math.random() * 6);
+      newIndex = Math.floor(Math.random() * 10);
     } while (newIndex === lastIndex);
     return newIndex;
   };
@@ -42,7 +41,7 @@ const BeforeAfterSlider = () => {
     setIsLoading(true);
     setCurrentBefore(beforeImages[index]);
     setCurrentAfter(afterImages[index]);
-    
+
     // Simulate loading delay
     setTimeout(() => {
       setIsLoading(false);
@@ -65,7 +64,6 @@ const BeforeAfterSlider = () => {
     setSliderPosition(60);
   };
 
-  // Effect to handle slider dragging
   useEffect(() => {
     const slider = sliderRef.current;
     const button = buttonRef.current;
@@ -82,9 +80,14 @@ const BeforeAfterSlider = () => {
       // Constrain button position within the slider
       buttonX = Math.max(0, buttonX);
       buttonX = Math.min(sliderParentRect.width - buttonWidth, buttonX);
-      const sliderPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
 
-      setSliderPosition(sliderPercent);
+      const currentPercent = sliderPosition;
+      const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
+
+      const sensitivity = 0.03; // Adjust this value to change sensitivity (lower = less sensitive)
+      const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
+
+      setSliderPosition(Math.max(0, Math.min(100, newPercent)));
     };
 
     const handleStart = () => setIsDragging(true);
@@ -101,61 +104,52 @@ const BeforeAfterSlider = () => {
       button.removeEventListener("touchend", handleEnd);
       button.removeEventListener("touchmove", handleMoveButton);
     };
-  }, [isDragging]);
+  }, [isDragging, sliderPosition]);
+
 
   return (
-    <div className="w-full min-w-[375px] h-screen flex flex-col items-center justify-start mt-1 bg-white scroll-smooth">
+    <div className="w-full min-w-[375px] h-full flex flex-col items-center justify-start bg-white mt-1">
+
       {/* Header with logo images */}
-      <div className="w-[90%] flex justify-between bg-white">
-        <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2"/>
-        <img src="24hr.svg" alt="24 hour" className="mr-2"/>
+      <div className="xs:w-[80%] w-[85%] mt-1 flex justify-between items-center bg-white -mb-6 xs:mb-0">
+        <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
+        <img src="24hr.svg" alt="24 hour" className="mr-2" />
       </div>
 
-      {/* Main content area with iPad background */}
-      <div className="w-full flex-grow flex flex-col items-center justify-start bg-[url('/ipad.svg')] bg-cover bg-right bg-no-repeat pr-4" style={{ height: 'calc(100vh - var(--top-div-height))' }}>
-        {/* Slider container */}
-        <div
-          className="w-full h-full flex flex-col items-center justify-start mt-[14%] mr-[30%] bg-[#efefef] rounded-tr-xl"
-          style={{ transform: "rotate(-1deg)" }}
-          ref={sliderRef}
-        >
+      <div className="w-[95%] h-[90%] flex justify-center items-center bg-[url('/ipad.svg')] bg-contain bg-no-repeat bg-center">
+        {/* Main content area with iPad background */}
+        <div className="flex w-[95%] h-[95%] justify-center items-center" ref={sliderRef}>
           {/* Image container */}
-          <div className="w-[75%] h-[85%] min-w-[290px] bg-white-500 ml-14 mt-8 rounded-xl relative" style={{ transform: "rotate(1deg)" }}>
+          <div className="w-[85%] h-[90%] flex justify-center items-center min-w-[290px] relative">
             {(!hasLoadedOnce || isLoading) && <LoadingOverlay />}
-            <div
-              className="w-full h-full relative overflow-hidden select-none"
-              style={{ cursor: isDragging ? "ew-resize" : "default" }}
-            >
+            <div className="w-full h-full relative overflow-hidden select-none" style={{ cursor: isDragging ? "ew-resize" : "default" }}>
               {/* 'After' image */}
               {currentAfter && <Image src={currentAfter} alt="After" fill priority />}
               {/* 'Before' image with clip path for slider effect */}
-              <div
-                className="w-full h-full absolute top-0 left-0 right-0 max-w-[700px] overflow-hidden select-none"
-                style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-              >
+              <div className="w-full h-full absolute top-0 left-0 right-0 max-w-[700px] overflow-hidden select-none" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
                 {currentBefore && <Image src={currentBefore} alt="Before" fill priority />}
               </div>
             </div>
           </div>
-          {/* Slider controls */}
-          <div className="flex flex-row items-center justify-end w-full my-auto rotate-1">
-            {/* Reload button */}
-            <div className="flex w-auto items-center justify-center rotate-1 mr-6">
-              <CachedIcon color="disabled" fontSize="large" alt="Reload" className="cursor-pointer" onClick={handleReload} />
-            </div>
+        </div>
+      </div>
 
-            {/* Slider bar */}
-            <div
-              className={`h-[60%] w-[53%] flex items-center justify-center rounded-full mt-2 border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 rotate-1 mx-6 ${styles["button-pseudo-element"]}`}
-              ref={buttonRef}
-              style={{ "--slider-position": `${sliderPosition}%` }}
-            >
-              {/* Slider button */}
-              <button className="absolute cursor-pointer -mt-3 -mb-3 -rotate-1" style={{ left: `calc(${sliderPosition}% - 49px)` }}>
-                <img src="slider.svg" alt="Slider" className="cursor-pointer ml-5 " />
-              </button>
-            </div>
-          </div>
+      {/* Slider controls */}
+      <div className="flex flex-row items-start justify-center w-full xs:my-4">
+        {/* Reload button */}
+        <div className="flex w-auto -mt-1 mr-2">
+          <img src="reload.svg" alt="Reload" className="cursor-pointer" onClick={handleReload} />
+        </div>
+        {/* Slider bar */}
+        <div
+          className={`h-[60%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mx-6 -z-1 ${styles["button-pseudo-element"]}`}
+          ref={buttonRef}
+          style={{ "--slider-position": `${sliderPosition}%` }}
+        >
+          {/* Slider button */}
+          <button className="absolute cursor-pointer -mt-3 -mb-3" style={{ left: `calc(${sliderPosition}% - 49px)` }}>
+            <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6 " />
+          </button>
         </div>
       </div>
     </div>
@@ -163,3 +157,5 @@ const BeforeAfterSlider = () => {
 };
 
 export default BeforeAfterSlider;
+
+
