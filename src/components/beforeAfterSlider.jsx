@@ -5,7 +5,7 @@ import styles from "./beforeAfterSlider.module.css";
 
 // Component for displaying a loading spinner overlay
 const LoadingOverlay = ({ widthClass, heightClass }) => (
-  <div className={`absolute bg-black bg-opacity-50 flex items-center justify-center z-10 ${widthClass} ${heightClass}`}>
+  <div className={`absolute bg-black bg-opacity-50 flex items-center rounded-xl justify-center z-10 ${widthClass} ${heightClass}`}>
     <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
   </div>
 );
@@ -72,23 +72,25 @@ const BeforeAfterSlider = () => {
       if (!isDragging) return;
       const sliderParentRect = slider.parentElement.getBoundingClientRect();
       const buttonWidth = button.getBoundingClientRect().width;
-
+    
       event.preventDefault();
       const clientX = event.type.startsWith("touch") ? event.touches[0].clientX : event.clientX;
       let buttonX = clientX - sliderParentRect.left - buttonWidth / 2;
-
+    
       // Constrain button position within the slider
       buttonX = Math.max(0, Math.min(sliderParentRect.width - buttonWidth, buttonX));
-
+    
       const currentPercent = sliderPosition;
       const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
-
-      const sensitivity = 0.08; // Adjust this value to change sensitivity (lower = less sensitive)
+    
+      const sensitivity = 0.09; // Adjust this value to change sensitivity (lower = less sensitive)
       const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
-
+    
       // Ensure the slider position stays within 0-100 range
       setSliderPosition(Math.max(0, Math.min(100, newPercent)));
     };
+
+    
 
     const handleStart = () => setIsDragging(true);
     const handleEnd = () => setIsDragging(false);
@@ -123,7 +125,7 @@ const BeforeAfterSlider = () => {
           <div className="w-full h-[95%] flex justify-center items-center min-w-[290px] relative">
             {(!hasLoadedOnce || isLoading) && (
               <LoadingOverlay
-                widthClass="w-[80%] left-1/2 -translate-x-1/2"
+                widthClass="w-[82%] left-1/2 -translate-x-1/2"
                 heightClass="h-full"
               />
             )}
@@ -149,7 +151,7 @@ const BeforeAfterSlider = () => {
 
         {/* Slider bar */}
         <div
-          className={`h-[25%] w-[65%] flex rounded-full border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mr-6 -z-1 mt-1 ${styles["button-pseudo-element"]}`}
+          className={`h-[25%] w-[60%] flex rounded-full border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mr-10 -z-1 mt-1 ${styles["button-pseudo-element"]}`}
           ref={buttonRef}
           style={{ "--slider-position": `${sliderPosition}%` }}
         >
@@ -157,7 +159,7 @@ const BeforeAfterSlider = () => {
           <button
             className="absolute cursor-pointer -mt-3 -mb-3"
             style={{
-              left: `max(-49px, calc(${sliderPosition}% - 49px))`,
+              left: `max(-49px, calc(${sliderPosition}% - 74.5px))`,
             }}
           >
             <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
