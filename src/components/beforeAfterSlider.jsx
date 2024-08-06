@@ -12,7 +12,7 @@ const LoadingOverlay = ({ widthClass, heightClass }) => (
 
 const BeforeAfterSlider = () => {
   // State variables
-  const [sliderPosition, setSliderPosition] = useState(60); // Position of the slider (0-100)
+  const [sliderPosition, setSliderPosition] = useState(70); // Position of the slider (0-100)
   const [isDragging, setIsDragging] = useState(false); // Whether the user is currently dragging the slider
   const [isLoading, setIsLoading] = useState(true); // Whether images are currently loading
   const [currentBefore, setCurrentBefore] = useState(""); // Current 'before' image
@@ -78,8 +78,7 @@ const BeforeAfterSlider = () => {
       let buttonX = clientX - sliderParentRect.left - buttonWidth / 2;
 
       // Constrain button position within the slider
-      buttonX = Math.max(0, buttonX);
-      buttonX = Math.min(sliderParentRect.width - buttonWidth, buttonX);
+      buttonX = Math.max(0, Math.min(sliderParentRect.width - buttonWidth, buttonX));
 
       const currentPercent = sliderPosition;
       const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
@@ -87,6 +86,7 @@ const BeforeAfterSlider = () => {
       const sensitivity = 0.09; // Adjust this value to change sensitivity (lower = less sensitive)
       const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
 
+      // Ensure the slider position stays within 0-100 range
       setSliderPosition(Math.max(0, Math.min(100, newPercent)));
     };
 
@@ -140,21 +140,29 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider controls */}
-      <div className="flex flex-row items-center justify-between w-[80%] h-[10vh]">
+      <div className="flex flex-row items-center justify-between w-[90%] h-[10vh]">
+
         {/* Reload button */}
-        <div className="flex mt-1">
+        <div className="mx-4">
           <img src="reload.svg" alt="Reload" className="cursor-pointer" onClick={handleReload} />
         </div>
+
         {/* Slider bar */}
         <div
-          className={`h-[25%] w-[65%] flex items-center justify-center rounded-full mt-2 border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mx-6 -z-1 ${styles["button-pseudo-element"]}`}
+          className={`h-[25%] w-[65%] flex rounded-full border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mr-6 -z-1 mt-1 ${styles["button-pseudo-element"]}`}
           ref={buttonRef}
           style={{ "--slider-position": `${sliderPosition}%` }}
         >
           {/* Slider button */}
-          <button className="absolute cursor-pointer -mt-3 -mb-3" style={{ left: `calc(${sliderPosition}% - 49px)` }}>
-            <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6 " />
+          <button
+            className="absolute cursor-pointer -mt-3 -mb-3"
+            style={{
+              left: `max(-49px, calc(${sliderPosition}% - 49px))`,
+            }}
+          >
+            <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
           </button>
+
         </div>
       </div>
     </div>
