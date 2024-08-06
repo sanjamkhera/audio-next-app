@@ -91,7 +91,7 @@ const Home = () => {
           </div>
 
           {/* Before/After slider (mobile view) */}
-          <div className='sl:hidden al:hidden mx:hidden h-screen flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
+          <div className='sl:hidden al:hidden mx:hidden xs:h-auto h-screen flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
             <BeforeAfterSlider className="flex-1" />
           </div>
 

@@ -84,7 +84,7 @@ const BeforeAfterSlider = () => {
       const currentPercent = sliderPosition;
       const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
 
-      const sensitivity = 0.03; // Adjust this value to change sensitivity (lower = less sensitive)
+      const sensitivity = 0.1; // Adjust this value to change sensitivity (lower = less sensitive)
       const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
 
       setSliderPosition(Math.max(0, Math.min(100, newPercent)));
@@ -111,7 +111,7 @@ const BeforeAfterSlider = () => {
     <div className="w-full min-w-[375px] h-full flex flex-col items-center justify-start bg-white mt-1">
 
       {/* Header with logo images */}
-      <div className="xs:w-[80%] w-[85%] mt-1 flex justify-between items-center bg-white -mb-6 xs:mb-0">
+      <div className="w-[85%] mt-1 flex justify-between items-center bg-white">
         <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
         <img src="24hr.svg" alt="24 hour" className="mr-2" />
       </div>
@@ -135,9 +135,9 @@ const BeforeAfterSlider = () => {
       </div>
 
       {/* Slider controls */}
-      <div className="flex flex-row items-start justify-center w-full xs:my-4">
+      <div className="flex flex-row items-start justify-center w-full">
         {/* Reload button */}
-        <div className="flex w-auto -mt-1 mr-2">
+        <div className="flex w-auto mr-2">
           <img src="reload.svg" alt="Reload" className="cursor-pointer" onClick={handleReload} />
         </div>
         {/* Slider bar */}
