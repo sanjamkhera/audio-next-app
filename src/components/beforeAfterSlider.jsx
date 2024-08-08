@@ -5,7 +5,7 @@ import styles from "./beforeAfterSlider.module.css";
 
 // Component for displaying a loading spinner overlay
 const LoadingOverlay = ({ widthClass, heightClass }) => (
-  <div className={`absolute bg-black bg-opacity-50 flex items-center rounded-xl justify-center z-10 ${widthClass} ${heightClass}`}>
+  <div className={`absolute bg-black bg-opacity-50 flex items-center rounded-2xl justify-center z-10 ${widthClass} ${heightClass}`}>
     <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
   </div>
 );
@@ -70,43 +70,41 @@ const BeforeAfterSlider = () => {
 
     const handleMoveButton = (event) => {
       if (!isDragging) return;
-      const sliderParentRect = slider.parentElement.getBoundingClientRect();
+      const sliderRect = slider.getBoundingClientRect();
       const buttonWidth = button.getBoundingClientRect().width;
-    
+
       event.preventDefault();
       const clientX = event.type.startsWith("touch") ? event.touches[0].clientX : event.clientX;
-      let buttonX = clientX - sliderParentRect.left - buttonWidth / 2;
-    
-      // Constrain button position within the slider
-      buttonX = Math.max(0, Math.min(sliderParentRect.width - buttonWidth, buttonX));
-    
-      const currentPercent = sliderPosition;
-      const rawPercent = (buttonX / (sliderParentRect.width - buttonWidth)) * 100;
-    
-      const sensitivity = 0.09; // Adjust this value to change sensitivity (lower = less sensitive)
-      const newPercent = currentPercent + (rawPercent - currentPercent) * sensitivity;
-    
-      // Ensure the slider position stays within 0-100 range
-      setSliderPosition(Math.max(0, Math.min(100, newPercent)));
-    };
+      let buttonX = clientX - sliderRect.left - buttonWidth / 2;
 
-    
+      // Constrain button position within the slider
+      buttonX = Math.max(0, Math.min(sliderRect.width - buttonWidth, buttonX));
+
+      const newPosition = (buttonX / (sliderRect.width - buttonWidth)) * 100;
+      setSliderPosition(newPosition);
+    };
 
     const handleStart = () => setIsDragging(true);
     const handleEnd = () => setIsDragging(false);
 
-    // Add event listeners for touch events
+    // Add event listeners for both mouse and touch events
+    button.addEventListener("mousedown", handleStart);
+    document.addEventListener("mousemove", handleMoveButton);
+    document.addEventListener("mouseup", handleEnd);
     button.addEventListener("touchstart", handleStart, { passive: false });
-    button.addEventListener("touchend", handleEnd, { passive: false });
-    button.addEventListener("touchmove", handleMoveButton, { passive: false });
+    document.addEventListener("touchmove", handleMoveButton, { passive: false });
+    document.addEventListener("touchend", handleEnd);
 
     // Clean up event listeners on component unmount
     return () => {
+      button.removeEventListener("mousedown", handleStart);
+      document.removeEventListener("mousemove", handleMoveButton);
+      document.removeEventListener("mouseup", handleEnd);
       button.removeEventListener("touchstart", handleStart);
-      button.removeEventListener("touchend", handleEnd);
-      button.removeEventListener("touchmove", handleMoveButton);
+      document.removeEventListener("touchmove", handleMoveButton);
+      document.removeEventListener("touchend", handleEnd);
     };
-  }, [isDragging, sliderPosition]);
+  }, [isDragging]);
 
 
   return (
@@ -114,8 +112,8 @@ const BeforeAfterSlider = () => {
 
       {/* Header with logo images */}
       <div className="w-[80%] mt-1 h-10 flex justify-between items-center bg-white">
-        <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2" />
-        <img src="24hr.svg" alt="24 hour" className="mr-2" />
+        <img src="napkinIdea.svg" alt="Napkin Idea" className="ml-2 w-42" />
+        <img src="24hr.svg" alt="24 hour" className="mr-2 w-42" />
       </div>
 
       <div className="w-[99%] h-[85vh] flex justify-center items-center bg-[url('/ipad.svg')] bg-contain bg-no-repeat bg-center">
@@ -146,25 +144,26 @@ const BeforeAfterSlider = () => {
 
         {/* Reload button */}
         <div className="mx-4">
-          <img src="reload.svg" alt="Reload" className="cursor-pointer" onClick={handleReload} />
+          <img src="reload.svg" alt="Reload" className="cursor-pointer w-16" onClick={handleReload} />
         </div>
 
         {/* Slider bar */}
         <div
-          className={`h-[25%] w-[60%] flex rounded-full border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mr-10 -z-1 mt-1 ${styles["button-pseudo-element"]}`}
-          ref={buttonRef}
+          className={`h-[25%] w-[60%] flex rounded-full border-zinc-900 bg-gradient-to-b from-gray-300 to-gray-50 mr-10 relative mt-1 ${styles["button-pseudo-element"]}`}
+          ref={sliderRef}
           style={{ "--slider-position": `${sliderPosition}%` }}
         >
           {/* Slider button */}
           <button
-            className="absolute cursor-pointer -mt-3 -mb-3"
+            ref={buttonRef}
+            className="absolute top-1/2 -translate-y-1/2 cursor-pointer w-[58px] h-[58px]"
             style={{
-              left: `max(-49px, calc(${sliderPosition}% - 58px))`,
+              left: `${sliderPosition}%`,
+              transform: `translate(-50%, -50%)`,
             }}
           >
-            <img src="slider.svg" alt="Slider" className="cursor-pointer ml-6" />
+            <img src="slider.svg" alt="Slider" className="w-full h-full" />
           </button>
-
         </div>
       </div>
     </div>
