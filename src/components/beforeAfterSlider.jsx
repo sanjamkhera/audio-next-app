@@ -123,7 +123,7 @@ const BeforeAfterSlider = () => {
           <div className="w-full h-[95%] flex justify-center items-center min-w-[290px] relative">
             {(!hasLoadedOnce || isLoading) && (
               <LoadingOverlay
-                widthClass="w-[82%] left-1/2 -translate-x-1/2"
+                widthClass="w-[80%] left-1/2 -translate-x-1/2"
                 heightClass="h-full"
               />
             )}

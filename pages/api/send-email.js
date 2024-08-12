@@ -2,6 +2,14 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb' // Increase this value as needed
+    }
+  }
+};
+
 // Function to convert image to base64
 function imageToBase64(filePath) {
   const img = fs.readFileSync(filePath);

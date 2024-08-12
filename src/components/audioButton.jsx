@@ -48,10 +48,10 @@ const AudioButton = ({
 
   // Handle recording blob and convert to base64
   useEffect(() => {
-    if (recordingBlob && timer < 10) {
-      setError('Recording must be at least 10 seconds long.');
+    if (recordingBlob && timer < 6) {
+      setError('Recording must be at least 6 seconds long.');
       setAudioUrl(null);
-    } else if (recordingBlob && recordingBlob.size >= 10) {
+    } else if (recordingBlob && recordingBlob.size >= 6) {
       setError(null);
       const audioUrl = URL.createObjectURL(recordingBlob);
       setAudioUrl(audioUrl);
@@ -151,51 +151,48 @@ const AudioButton = ({
     draw();
   };
 
-  // Draw waveform for recorded audio
   const drawWaveform = async () => {
     const canvas = waveformRef.current;
     const ctx = canvas.getContext('2d');
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
+  
     try {
       const response = await fetch(audioUrl);
       const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-
-      const bufferLength = audioBuffer.length;
+  
       const data = audioBuffer.getChannelData(0);
       const step = Math.ceil(data.length / canvas.width);
       const amp = canvas.height / 2;
-
+  
       ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.lineWidth = 2;
       ctx.strokeStyle = 'rgb(160, 160, 160)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-
+  
+      const silenceThreshold = 0.01;
+      const scaleFactor = 4;
       const lineSpacing = 3;
-      const silenceThreshold = 0.1;
       const tinyBarHeight = 4;
-
-      const scalingFactor = 4;
-
+  
       for (let i = 0; i < canvas.width; i += lineSpacing) {
         let min = 1.0;
         let max = -1.0;
-        for (let j = 0; j < step; j++) {
-          const datum = data[(i * step) + j];
+        for (let j = 0; j < step * lineSpacing; j++) {
+          const datum = data[i * step + j];
           if (datum < min) min = datum;
           if (datum > max) max = datum;
         }
-        min *= scalingFactor;
-        max *= scalingFactor;
-
+        min *= scaleFactor;
+        max *= scaleFactor;
+  
         if (max - min < silenceThreshold) {
           ctx.moveTo(i, amp - tinyBarHeight / 2);
           ctx.lineTo(i, amp + tinyBarHeight / 2);
         } else {
-          ctx.moveTo(i, amp + min * (amp / 2));
-          ctx.lineTo(i, amp + max * (amp / 2));
+          ctx.moveTo(i, amp + min * amp);
+          ctx.lineTo(i, amp + max * amp);
         }
       }
       ctx.stroke();
