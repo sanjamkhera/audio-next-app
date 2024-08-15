@@ -140,7 +140,7 @@ const BeforeAfterSlider = () => {
           </div>
 
           {/* Reload button */}
-          <div className="absolute xs:left-10 bottom-4 left-4">
+          <div className="absolute xs:left-10 bottom-3 left-6">
             <img src="reload.svg" alt="Reload" className="cursor-pointer w-16 xs:w-10 xm:w-12" onClick={handleReload} />
           </div>
         </div>
