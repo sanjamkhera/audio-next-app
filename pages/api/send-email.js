@@ -1,6 +1,13 @@
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
+
+
+require('dotenv').config();
+
+console.log('Email User:', process.env.GODADDY_EMAIL_USER);
+console.log('Email Pass:', process.env.GODADDY_EMAIL_PASS.substring(0, 3) + '...'); // Only log the first 3 characters of the password for security
 
 export const config = {
   api: {
@@ -25,12 +32,27 @@ const handler = async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Replace with your actual Gmail credentials or use environment variables
+    // // Replace with your actual Gmail credentials or use environment variables
+    // const transporter = nodemailer.createTransport({
+    //   service: 'Gmail',
+    //   auth: {
+    //     user: process.env.EMAIL_USER,
+    //     pass: process.env.EMAIL_PASS
+    //   }
+    // });
+
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      host: 'smtp.office365.com',
+      port: 587,
+      secure: false, // Use STARTTLS
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: process.env.GODADDY_EMAIL_USER,
+        pass: process.env.GODADDY_EMAIL_PASS
+      },
+      tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: true,
+        minVersion: 'TLSv1.2'
       }
     });
 
@@ -57,7 +79,7 @@ const handler = async (req, res) => {
     }
 
     // Base URL for the images
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000/';
+    const baseUrl = 'http://localhost:3000/';
 
     // Convert images to base64
     const logoBase64 = imageToBase64(path.join(process.cwd(), 'public', 'logo.svg'));
@@ -95,8 +117,8 @@ const handler = async (req, res) => {
     `;
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: [email, process.env.EMAIL_USER],
+      from: process.env.GODADDY_EMAIL_USER, 
+      to: [email, process.env.GODADDY_EMAIL_USER], 
       subject: 'Your Estimate Request',
       html: htmlContent,
       attachments: [
@@ -105,7 +127,6 @@ const handler = async (req, res) => {
     };
 
     try {
-      // Send email
       await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
