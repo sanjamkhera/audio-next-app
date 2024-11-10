@@ -5,7 +5,6 @@ import FeatureList from "@/components/featureList";
 import FeatureButtons from '@/components/featureButtons';
 import WaitingPage from '@/components/waitingPage';
 import WaitingPageInput from '@/components/waitingPageInput';
-import BeforeAfterSlider from '@/components/beforeAfterSlider';
 import FeatureListLarge from '@/components/featureListLarge';
 import WaitingPageLarge from '../components/waitingPageLarge';
 import Image from 'next/image';
@@ -88,11 +87,6 @@ const Home = () => {
           {/* Hero section */}
           <div className="flex justify-center scroll-smooth font-sans">
             <Hero {...commonProps} className="flex-1" />
-          </div>
-
-          {/* Before/After slider (mobile view) */}
-          <div className='sl:hidden al:hidden mx:hidden flex flex-col items-center scroll-smooth overflow-hidden bg-white'>
-            <BeforeAfterSlider className="flex-1" />
           </div>
 
           {/* Feature list and buttons (mobile view) */}
